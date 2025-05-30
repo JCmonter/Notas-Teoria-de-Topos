@@ -1,0 +1,98 @@
+\documentclass[12pt,letter]{report}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,graphicx,multicol}
+\usepackage[mathscr]{euscript}
+\usepackage[style=alphabetic]{biblatex}
+\usepackage{csquotes}
+\usepackage{float}
+\usepackage{tikz-cd}
+\usetikzlibrary{decorations.pathmorphing, arrows.meta}
+\setlength{\marginparwidth}{2cm}
+\usepackage{todonotes}
+\addbibresource{Referencias.bib}
+
+
+
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\graphicspath{{./img/}}
+%\usepackage{pgfplots}
+%\usepackage[hidelinks]{hyperref}
+%\hypersetup{
+%     colorlinks=true,
+%     linkcolor=blue,
+%     filecolor=blue,
+%     citecolor = red,      
+%     urlcolor=cyan,
+%     }
+
+\setcounter{MaxMatrixCols}{10}
+\newtheorem{theo}{Teorema}[chapter]
+\newtheorem{prop}[theo]{Proposici\'on}
+\newtheorem{coro}[theo]{Corolario}
+\newtheorem{lema}[theo]{Lema}
+\theoremstyle{definition}
+\newtheorem{definition}[theo]{Definición}
+\newtheorem*{obs}{Observación}
+\newtheorem{ejp}{Ejemplo}
+
+\newcommand{\comments}[1]{}
+
+
+
+\def \A{{\mathcal A}}
+\def \B{{\mathcal B}}
+\def \C{{\mathcal C}}
+\def \D{{\mathcal D}}
+\def \F{{\mathcal F}}
+\def \E{{\mathcal E}}
+\def \H{{\mathcal H}}
+\def \I{{\mathcal I}}
+\def \L{{\mathcal L}}
+\def \K{{\mathbb K}}
+\def \N{{\mathbb N}} 
+\def \O{{\mathcal O}}
+\def \Pa{{\mathbb P}}
+\def \P{{\mathcal P}}
+\def \pp{\mathfrak p }
+\def \Q{{\mathbb Q}}
+\def \R{{\mathbb R}}
+\def \S{{\mathcal S}}
+\def \T{{\mathcal T}}
+\def \U{{\mathcal U}}
+\def \Z{{\mathbb Z}}
+
+
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Hom}{Hom}
+
+\def \id{{\mathrm{id}}}
+\def \Mor{{\mathrm{Mor}}}
+\def \Top{{\mathrm{Top}}}
+\def \Gav{{\mathrm{Gav}}}
+\def \Et{{\mathrm{Et}}}
+\def \Con{{\mathrm{Con}}}
+\def \Fun{{\mathrm{Fun}}}
+\def \Frm{{\mathrm{Frm}}}
+\def \top{{\mathscr{TOP}}}
+\def \op{{\mathrm{op}}}
+\def \Vect{{\mathrm{Vect}}}
+\def \Grp{{\mathrm{Grp}}}
+\def \Ring{{\mathrm{Ring}}}
+\def \Pos{{\mathrm{Pos}}}
+\def \Lan{{\mathrm{Lan}}}
+\def \germ{{\mathrm{germ}}}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{document}
+\include{Portada}
+\tableofcontents
+\include{Parte1}
+\include{Parte2}
+\include{Parte3}
+\include{Parte4}
+
+
+%\printbibliography
+\end{document}

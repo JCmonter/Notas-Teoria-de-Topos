@@ -17,7 +17,7 @@ A un elemento $s\in F(U)$ de la imagen de un abierto $U$ de $S$ se le llama \emp
 \begin{proof}
 
 \end{proof}
-\begin{definition}[Pregavilla separada] Una pregavilla $F:\O(S)^{\op}\to\Con$ se dice \emph{separa} si la función $e$ de (\ref{ec:2.1}) es inyectiva. 
+\begin{definition}[Pregavilla separada] Una pregavilla $F:\O(S)^{\op}\to\Con$ se dice \emph{separada} si la función $e$ de (\ref{ec:2.1}) es inyectiva. 
 \end{definition}
 \begin{definition}[Gavilla]
     Una \emph{gavilla} de conjuntos sobre un espacio topológico $S$ es un funtor $F:\O(S)^\op\to\Con$ tal que para todo conjunto abierto $U$ de $S$ existe una cubierta abierta $\{U_i\}_{i\in I}$ de tal modo que (\ref{ec:2.1}) es un igualador.  
@@ -141,7 +141,7 @@ Denotemos por $\Gamma_pU:=\{s\mid s\text{ es una sección local}\}$. Dado un abi
 \end{lema}
 
 \section{El funtor $\Lambda$}
-Sea $P:\O(S)^{\op}\to\Con$ una pregavilla sobre un espacio un espacio $S$. Sea $x\in S$ un punto, y consideremos la familia $\O(x):=\{U\in \O(S)\mid x\in U\}$ la familia de vecindades abiertas de $x$ en $S$. Dados $U_\alpha, U_\beta\in \O(x)$ la intersección $U_\gamma:=U_\alpha\cap U_\beta\in\O(x)$ cumple que $U_\gamma\subseteq U_\alpha$ y $U_\gamma\subseteq U_\beta$. Esto es, considerando el orden pacial $\leq$ dado por la contención de abiertos, se tiene que $(\O(x),\leq)$ es un conjunto dirigido. Además, para cada morfismo  $\iota^\beta_\alpha:U_\alpha\hookrightarrow U_\beta$ en $\O(x)$, se tienen morfismos $\phi^\beta_\alpha:= P(\iota^\beta_\alpha): P(U_\beta)\to P(U_\alpha)$ los cuales forman una familia directa en $\Con$, denotada por $(P(\O(x)),\leq)$. \\
+Sea $P:\O(S)^{\op}\to\Con$ una pregavilla sobre un espacio $S$. Sea $x\in S$ un punto, y consideremos la familia $\O(x):=\{U\in \O(S)\mid x\in U\}$ la familia de vecindades abiertas de $x$ en $S$. Dados $U_\alpha, U_\beta\in \O(x)$ la intersección $U_\gamma:=U_\alpha\cap U_\beta\in\O(x)$ cumple que $U_\gamma\subseteq U_\alpha$ y $U_\gamma\subseteq U_\beta$. Esto es, considerando el orden pacial $\leq$ dado por la contención de abiertos, se tiene que $(\O(x),\leq)$ es un conjunto dirigido. Además, para cada morfismo  $\iota^\beta_\alpha:U_\alpha\hookrightarrow U_\beta$ en $\O(x)$, se tienen morfismos $\phi^\beta_\alpha:= P(\iota^\beta_\alpha): P(U_\beta)\to P(U_\alpha)$ los cuales forman una familia directa en $\Con$, denotada por $(P(\O(x)),\leq)$. \\
 Si el colímite de $(P(\O(x)), \leq )$ en $\Con$ existe, este es denotado por $P_x:=\varinjlim P(U_\alpha)$. Para cada familia $\{M_\alpha\}$ indexada por $\O(x)$, este colímite se puede ver de manera explícita como sigue 
 \begin{equation*}
      \varinjlim M_\alpha:=\left(\bigsqcup M_\alpha\right)/\sim
@@ -212,8 +212,26 @@ Del resultado anterior, tenemos el diagrama conmutativo
 \noindent
 Un resultado inmediato es el siguiente.
 \begin{lema}
-    La transformación natural dada por $h\to h_x$ es un funtor de $\Con^{\O(x)}\to \Con$. Dicho funtor es ``tomar germen en $x$''.
+    La transformación natural dada por $h\to h_x$ es un funtor de $\Con^{\O(x)^{op}}\to \Con$. Dicho funtor es ``tomar germen en $x$''.
 \end{lema}
+
+\begin{proof}
+Ya hemos probado que la asignación de objetos y flechas está bien definida. Resta verificar que 
+preserva identidades y composiciones.
+\begin{itemize}
+\item Sea $\id_p\colon P\to P$ en $\Con^{\O(x)^{op}}$, Veamos que $(\id_p)_x=\id_{p_x}$. Sea $[s]_x\in P_x$, por el lema anterior,
+cualquier morfismo $\id_p\colon P\to P$ induce $\id_{p_x}$. Así,
+\[
+\id_{p_x}([s]_x)=[\id_p(s)]_x=[s]_x.
+\]
+\item Sean $h\colon P\to Q$ y $g\colon Q\to R$ morfismos en $\Con^{\O(x)^{op}}$. Veamos que $(g\circ h)_x=g_x\circ h_x$. Sea $[s]_x\in P_x$ y al ser $h$, $g$ 
+\item transformaciones naturales, se tiene que
+\[
+(g\circ h)_x([s]_x)=g_x([h_U(s)]_x)=[g_U(h_U(s))]_x=g_x\circ h_x([s]_x).
+\]
+\end{itemize}
+\end{proof}
+
 Sea 
 \begin{eqnarray*}
 \Lambda_p=\bigsqcup_{x\in S}P_x=\bigsqcup_{x\in S}\{[s]_x\mid s\in PU\}
@@ -228,6 +246,124 @@ la unión disjunta de germenes sobre $x\in S$. Para toda sección $s\in PU$, def
 \begin{lema}
     El conjunto $B_p:=\{\hat{s}(U)\mid s\in PU, U\in\O(S)\}$ es una base para una topología en $\Lambda_p$.
 \end{lema}
+
+\begin{proof}
+    Primero veamos que $\bigcup B_p=\Lambda_p$.
+    \begin{itemize}
+        \item Se cumple que $\bigcup B_p\subseteq \Lambda_p$, para la otra condición consideremos $[s]_x\in \Lambda_p$, entonces $[s]_x=\hat{s}(U)$ para algún $U\in\O(S)$ y $s\in PU$. Por lo tanto, $[s]_x\in B_p$.
+        \item Sean $\hat{s}(U)$, $\hat{r}(V)\in B_p$ y supongamos que $\hat{s}(x)=\hat{r}(y)$, entonces $[s]_x=[r]_y$. Por lo tanto $x=y$ y así existe $W\subset U\cap V$ tal que $s\mid_W=r\mid_W$. Luego $\widehat{s\mid_W}(W)$ es un elemento en $B_p$ tal que
+        \[
+        [s]_x\in\widehat{s\mid_W}(W)\subset \hat{s}(U)\cap \hat{r}(W).        
+        \]
+    \end{itemize}
+\end{proof}
+
+\begin{obs}
+Sean $U,V\in \O(S)$ tales que $V\subset U$ y $s\in PU$. Entonces $\hat{s}(V)=\widehat{s\mid_V}(V)$ para todo $s\in PU$.
+\end{obs}
+
+\begin{lema}
+Sea $\Lambda_p$ dotado con la topología $B_p$. Entonces $p$ y $\hat{s}$ son continuas. Más aún, $p$ es un haz sobre $S$ y $\hat{s}$ es una sección local de $p$.
+\end{lema}
+
+\begin{proof}
+\begin{itemize}
+\item Sea $V\subseteq S$ abierto y sea $[s]_x\in \Lambda_p$ tal que $[s]_x\in p^{-1}(V)$, entonces $x\in U\cap V$. Consideremos $\widehat{s\mid_{U\cap V}}(U\cap V)\in B_p$. Por la observación 
+anterior 
+\[
+[s]_x=[s\mid_{U\cap V}]_x\in \widehat{s\mid_{U\cap V}}(U\cap V)\subseteq p^{-1}(V).
+\]
+Por lo tanto, $p$ es continua.
+
+\item Para $\hat{s}\colon U\to \Lambda_p$ sea $\hat{r}(V)\in B_p$ un abierto básico y $x\in U$ tal que $\hat{s}(x)\in \hat{r}(V)$. Entonces $[r]_y=[s]_x$ y $x=y$, de aquí que existe $W\subset U\cap V$ tal que 
+$s\mid_W=r\mid_W$. Por lo tanto, $\hat{s}(W)$ es un abierto básico tal que 
+\[
+[s]_x\in \hat{s}(W)\subseteq \hat{r}(V).
+\]
+De esta manera se concluye que $\hat{s}$ es continua.
+\end{itemize}
+Para ver que $\hat{s}$ es una sección local de $p$, basta notar que para todo $x\in U$ se tiene que $p\circ \hat{s}(x)=p([s]_x)=x$, por lo tanto 
+$p\circ \hat{s}=\id_U$, es decir, el diagrama
+\[\begin{tikzcd}
+	U && {\Lambda_p} \\
+	& S
+	\arrow["{\hat{s}}", from=1-1, to=1-3]
+	\arrow["i"', hook, from=1-1, to=2-2]
+	\arrow["p", from=1-3, to=2-2]
+\end{tikzcd}\]
+conmuta.
+\end{proof}
+
+\begin{definition}
+Sea $f\in \Top$, decimos que $f$ es un \emph{homeomorfismo} si tiene una inversa continua.
+\end{definition}
+
+\begin{lema}
+    $\hat{s}\colon U\to \hat{s}(U)$ es un homeomorfismo.
+\end{lema}
+
+\begin{proof}
+Consideremos $V\subset U$ abierto de $S$, entonces $\hat{s}(V)\in B_p$ y al ser continua, $\hat{s}$ es abierta.
+
+Supongamos que $\hat{s}(x)=\hat{s}(y)$, entonces $[s]_x=[s]_y$, es decir, $x=y$. Por lo tanto $\hat{s}$ es inyectiva. Ahora, sea $W\subset \hat{s}(U)$ abierto, entonces existe $V\subset U$ abierto tal que $\hat{s}(V)=W$. Por lo tanto, $\hat{s}^{-1}(W)=V$ y así $\hat{s}$ es biyectiva. 
+Finalmente, como $\hat{s}$ es continua y abierta, se sigue que es un homeomorfismo.
+\end{proof}
+
+\begin{lema}
+Si $h\colon P\to Q$ es un morfismo de pregavillas, la unión ajena de funciones $h_x\colon P_x\to Q_x$ es un morfismo de hazes continuos $h_p\colon \Lambda_P\to \Lambda_Q$.
+\end{lema}
+
+\begin{proof}
+Primero verificamos que $\langle h_x: P_x\to Q_x\rangle_{x\in S}$ es una función continua.
+
+Sean $\hat{s}(U)\in B_Q$ un abierto básico de $\Lambda_Q$ y $[t]_x\in \Lambda_p$ tal que $h_x([t]_x)\in \hat{s}(U)$. Entonces, $[h_U(t)]_x=[s]_x$ y por lo tanto existe uan vecindad $V$ de $x$ tal que $V\subset U\cap W$ 
+de forma que $h_U(t)\mid_V=s\mid_V$ y $\widehat{h_U(t)\mid_V}(V)=\widehat{h_U(t)}(V)$. Por lo tanto, $\widehat{h_U(t)}(V)\in B_Q$.
+
+También tenemos que $[t]_x\in \hat{t}(V)=\widehat{t\mid_V}(V)$. Como $h$ es transformación natural, se tiene que el diagrama 
+\[\begin{tikzcd}
+	PU & QU \\
+	PV & QV
+	\arrow["{h_U}", from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow["{h_V}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+conmuta. Así, $h_V(t\mid_V)=h_U(t)\mid_V=s\mid_V$ para todo $t\in PU$. Por lo tanto, $\langle h_x: P_x\to Q_x\rangle_{x\in S}$ es continua.
+
+Sea $[s]_x\in \Lambda_P$, entonces $p([s]_x)=x=q([h_U(s)]_x)$ y $\langle h_x: P_x\to Q_x\rangle_{x\in S}$ es un morfismo de hazes. 
+\end{proof}
+
+\begin{lema}
+$P\to \Lambda_P$ es un funtor de pregavillas a hazes.
+\end{lema}
+
+\begin{proof}
+Sea $\id_p\colon P\to P$ la identidad en $\Con^{\O(S)^{op}}$, entonces $\id_{p_x}$ es la función identidad para cada $x\in S$. De aquí que $\langle \id_{p_x}: P_x\to P_x\rangle_{x\in S}$ es la identidad en $\Lambda_P$. Por lo tanto, $P\to \Lambda_P$ preserva identidades.
+
+Sean $h\colon P\to Q$ y $g\colon Q\to R$ morfismos de pregavillas, entonces $g_x\circ h_x=(g\circ h)_x$ para cada $x\in S$. Por lo tanto, $\langle g_x\circ h_x: P_x\to R_x\rangle_{x\in S}$ es la composición de morfismos de hazes. Así, $P\to \Lambda_P$ preserva composiciones.
+
+Por lo tanto, $P\to \Lambda_P$ es un funtor de pregavillas a hazes.
+\end{proof}
+
+\begin{definition}
+Una función $f\colon S\to T$ entre espacios topológicos es un homomorfismo local si para cada $x\in S$ existe un abierto $U\subset S$ tal que $x\in U$ y $f\mid_U$ es un homeomorfismo.
+\end{definition}
+
+\begin{lema}
+Toda sección de un homeomorfismo local es una función abierta.
+\end{lema}
+
+\begin{proof}
+Sea $p\colon T\to S$ un homeomorfismo local, $s\colon U\to T$ una sección de $p$ y $V\subset U$ un abierto. Sea $y\in s(V)$ y como $p$ es un homeomorfismo local, existe un abierto $W\subset S$ tal que $p\mid_W$ es un homeomorfismo. Entonces, $p(W)$ es un abierto de $T$ y así $p(W)\cap V$ es abierto. Al ser $s$ una sección de $p$, se tiene que $p(W\cap s(V))=p(W)\cap V$. Además, $p\mid_W$ es una función abierta, $W\cap s(V)$ es una vecindad abierta de $x$ contenida en $s(V)$. Por lo tanto, $s(V)$ es abierto en $T$.
+\end{proof}
+
+\begin{lema}
+La función $p\colon \Lambda_P\to S$ es un homeomorfismo local.
+\end{lema}
+
+\begin{proof}
+Sea $[s]_x\in \Lambda_P$. El abierto básico $\hat{s}(U)$ contiene a $[s]_x$ y al ser $\hat{s}$ una sección de $p$, $p(\hat{s}(U))=U$. Luego, $\hat{s}\colon U\to \hat{s}(U)$ es un homeomorfismo. Por lo tanto, $p\mid_{\hat{s}(U)}\colon \hat{s}(U)\to p\hat{s}(U)$ es un homeomorfismo.
+\end{proof}
 
 \section{$\H L/S\cong \Gav(S)$}
 

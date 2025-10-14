@@ -1,6 +1,49 @@
-\chapter{Gavillas sobre locales}
+\chapter{Gavillas sobre Marcos}
 
-\section{Locales y gavillas}
+\section{Marcos y gavillas}
+
+\subsection{Morfismos abiertos}
+
+\begin{definition}[Morfismo abierto]
+    Sea $f:A\to B$ un morfismo de marcos. Decimos que es abierto si existe $f_l:B\to A$, un morfismo de copos tal que:
+    \begin{itemize}
+        \item $f_l\dashv f$.
+        \item Para cada $a\in A$ y $b\in B$ se tiene la identidad de Frobenius 
+            $$f_l(b\wedge f(a))=f_l(b)\wedge a.$$
+    \end{itemize}
+\end{definition}
+
+\begin{obs}
+    En general, para caulquier par de morfismos adjuntos $f_l\dashv f$, se cumple una desigualdad de la identidad de Frobenius.
+    Sabemos que, por un lado, $b\wedge f(a)\leq b$ y entonces $f_l(b\wedge f(a))\leq f_l(b)$; y por otro lado,
+    como $b\wedge f(a)\leq f(a)$, tenemos que $f_l(b\wedge f(a))\leq f_l(f(a))\leq a$; por lo tanto $f_l(b\wedge f(a))\leq f_l(b)\wedge a.$
+\end{obs}
+
+\subsection{Morfismos étales}
+
+\begin{lema}
+    Sea $f:A\to B$ un morfismo de marcos, $a\in A$, $b\in B$ y $g:\downarrow a\to \downarrow b$ otro morfismo de marcos tal que 
+    el cuadrado \begin{tikzcd}
+	A & B \\
+	{\downarrow a} & {\downarrow b}
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["{a\wedge-}"', from=1-1, to=2-1]
+	\arrow["{b\wedge-}", from=1-2, to=2-2]
+	\arrow["g"', from=2-1, to=2-2]
+\end{tikzcd} conmuta, entonces $g(x)=b\wedge f(x)$ para todo $x\leq a$ y $g_*(y)=f_*(b\prec y)\wedge a$.
+\end{lema}
+\begin{proof}
+    Sea $x\leq a$, entonces:
+    $$g(x)=g(a\wedge x)=b\wedge f(x)$$
+    ya que el diagrama conmuta. Por otro lado sea $y\leq b$, entonces:
+    $$f_*(b\prec y)=f_*\circ (b\wedge-)_*(y)=(a\wedge-)_*\circ g_*(y)=a\prec g_*(y)$$
+    ya que si el cuadrado conmuta, entonces conmuta el cuadrado de los respectivos adjuntos derechos.
+    
+    De lo anterior, por un lado tenemos que $f_*(b\prec y)\wedge a\leq g_*(y)$. Por otro lado, notemos que $g_*(y)\leq a$,
+    y por lo obtenido previamente, tenemos que $b\wedge f(g_*(y))=g(g_*(y))\leq y$ (Esta última desigualdad porque $g\dashv g_*$).
+    Luego eso es equivalente a que $f(g_*(y))\leq b\prec y$ (Por ser la implicación el adjunto derecho de sacar ínfimo), y por último
+    $g_*(y)\leq f_*(b\prec y)$ (ya que $f\dashv f_*)$. Y por lo tanto $g_*(y)=f_*(b\prec y)\wedge a$.
+\end{proof}
 
 \section{Algunas equivalencias importantes}
 

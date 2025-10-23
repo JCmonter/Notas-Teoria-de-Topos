@@ -370,3 +370,133 @@ Sea $[s]_x\in \Lambda_P$. El abierto básico $\hat{s}(U)$ contiene a $[s]_x$ y a
 \section{Morfismos ultrafinitos}
 
 \section{Cambio de base}
+
+Recordemos que para $S\in \Top$, $\mathcal{O}S$ es la categoría cuyos objetos son los abiertos de $S$ y los morfismos son las 
+inclusiones. De esta manera, para $U, V\in \mathcal{O}S$ con $V\subseteq U$, $\mathcal{O}S^{\op}$ tiene las flechas $U\to V$.\\
+
+Así, para $S, T\in \Top$ tomamos $\Gav(S), \Gav(T)$ parta dar la siguiente definición.
+
+\begin{definition}\label{Def 2.5.1}
+Consideremos $f_*\colon \Gav(S)\to \Gav(T)$ dado por 
+\[
+f_*(F(V))=F(f^{-1}(V))
+\]
+para $V\in \mathcal{O}T$ y $F\in \Gav(S)$. Además, si $h\colon F\to G$ es una transformación natural en $\Gav(S)$ y $V\in \mathcal{O}S$,
+entonces 
+\[
+f_*(h_V)=h_{f^{-1}(V)}.
+\]
+\end{definition}
+
+\begin{lema}\label{Lem 2.5.2}
+$f_*F$ es una gavilla.
+\end{lema}
+
+\begin{proof}
+Sea $V\in \mathcal{O}T$ y $\{V_i\}_{i\in I}$. Debemos verificar que
+\begin{equation}\label{Eq 2.5.1}
+\begin{tikzcd}
+	{f_*F(V)} & {\prod_{i\in I}f_*F(V_i)} & {\prod_{i,j\in I}f_*F(V_i\cap V_j)}
+	\arrow["\epsilon", from=1-1, to=1-2]
+	\arrow["p", shift left=2, from=1-2, to=1-3]
+	\arrow["q"', shift right=2, from=1-2, to=1-3]
+\end{tikzcd}
+\end{equation}
+es un igualador.\\
+
+Al ser $f\colon S\to T$ una función continua, $f^{-1}(V)\in \mathcal{O}S$.
+Consideremos $U=f^{-1}(V)$ y $\{U_i\}_{i\in I}$ con $U_i=f^{-1}(V_i)$. 
+Luego, $U=\bigcup_{i\in I}U_i$ y por \ref{Eq 2.5.1} tenemos
+\[\begin{tikzcd}
+	{F(U)} & {\prod_{i\in I}F(U_i)} & {\prod_{i,j\in I}F(U_i\cap U_j)}
+	\arrow["\epsilon", from=1-1, to=1-2]
+	\arrow["p", shift left=2, from=1-2, to=1-3]
+	\arrow["q"', shift right=2, from=1-2, to=1-3]
+\end{tikzcd}\]
+es un igualador pues, por hipótesis, $F$ es una gavilla.
+\end{proof}
+
+\begin{lema}\label{Lem 2.5.3}
+$f_*\colon \Gav(S)\to \Gav(T)$ es un funtor.
+\end{lema}
+
+\begin{proof}
+Consideremos $F\in \Gav(S)$ y sea $\id_F\colon F\to F$ la transformación natural identidad. Para $V\in \mathcal{O}T$
+tenemos que 
+\[
+f_*\id_F(V)\colon f_*F(V)\to f_*F(V)
+\]
+es la identidad para todo $V\in \mathcal{O}T$. Por la Definición \ref{Def 2.5.1}
+\[
+\id_F(f^{-1}(V))\colon F(f^{-1}(V))\to F(f^{-1}(V))
+\]
+y por lo tanto, $f_*$ respeta identidades.\\
+
+Ahora, sean $F, G, H\in \Gav(S)$ y $h\colon F\to G$, $g\colon G\to H$ transformaciones naturales. Entonces, para $V\in \mathcal{O}T$
+\[\begin{tikzcd}
+	{f_*F(V)} & {f_*G(V)} & {f_*H(V)}
+	\arrow["{f_*k(V)}", from=1-1, to=1-2]
+	\arrow["{f_*l(V)}", from=1-2, to=1-3]
+\end{tikzcd}\]
+es la composición $f_*(L\circ h)$. Por definición, 
+\[\begin{tikzcd}
+	{F(f^{-1}(V))} && {G(f^{-1}(V))} && {H(f^{-1}(V))}
+	\arrow["{k_{f^{-1}(V)}}", from=1-1, to=1-3]
+	\arrow["{l_{f^{-1}(V)}}", from=1-3, to=1-5]
+\end{tikzcd}\]
+Como $k, l$ son transformaciones naturales, 
+\[
+(l\circ k)_{f^{-1}(v)}\colon F(f^{-1}(V))\to H(f^{-1}(V))
+\]
+y por definición 
+\[
+f_*(L\circ h)(V)= (l\circ k)_{f^{-1}(V)}.
+\]
+Por lo tanto, $f_*$ respeta composiciones.
+\end{proof}
+
+\begin{definition}\label{Def 2.5.4}
+Consideremos $f^*\colon \Top/T\to \Top/S$ dada por la asignación 
+\begin{enumerate}
+    \item para $(p\colon E\to T)\in \Top/T$, $f^*p\colon f^*E\to S$ (o simplemente $p^*$) es el pullback del diagrama
+    \[\begin{tikzcd}
+	{f^*E} & E \\
+	S & T
+	\arrow["e", from=1-1, to=1-2]
+	\arrow["{p^*}"', from=1-1, to=2-1]
+	\arrow["p", from=1-2, to=2-2]
+	\arrow["f"', from=2-1, to=2-2]
+    \end{tikzcd}\]
+    \item para $k\colon p\to p'$ un morfismo en $\Top/T$, $f^*k\colon p^*\to p'^*$ (o simplemente $k^*$) es el morfismo 
+    inducido por la propiedad universal del pullback que hace conmutar el diagrama
+    \[\begin{tikzcd}
+	{f^*E} & E \\
+	& {f^*E'} & {E'} \\
+	& S & T
+	\arrow["e", from=1-1, to=1-2]
+	\arrow["{k^*}", dashed, from=1-1, to=2-2]
+	\arrow["{p^*}"', from=1-1, to=3-2]
+	\arrow["k", from=1-2, to=2-3]
+	\arrow["{e'}"', from=2-2, to=2-3]
+	\arrow["{p'^*}", from=2-2, to=3-2]
+	\arrow["{p'}", from=2-3, to=3-3]
+	\arrow["f"', from=3-2, to=3-3]
+    \end{tikzcd}\]
+\end{enumerate}
+\end{definition}
+
+\begin{lema}\label{Lem 2.5.5}
+    Si $p\colon E\to T$ es un homeomorfismo local, entonces $p^*\colon f^*E\to S$ es un homeomorfismo local.
+\end{lema}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{lema}\label{Lem 2.5.6}
+$f^*\colon \Top/T\to \Top/S$ es un funtor.
+\end{lema}
+
+\begin{proof}
+
+\end{proof}

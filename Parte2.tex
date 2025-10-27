@@ -490,7 +490,36 @@ Consideremos $f^*\colon \Top/T\to \Top/S$ dada por la asignación
 \end{lema}
 
 \begin{proof}
+Sabemos que $f\colon S\to T$ es continua y $p\colon E\to T$ un homeomorfismo local. Además, 
+\[
+f^*E=\{(s,e)\in S\times E\mid f(s)=p(e)\}
+\]
+con la topología de subespacio de $S\times E$. Consoideremos $\langle x, e\rangle\in f^*E$, al ser $p$ un homeomorfismo local, para todo 
+$e\in E$ existe un abierto $U\subset E$ tal que $e\in U$ y $p\mid_U\colon U\to p(U)$ es un homeomorfismo, de aquí que $p(U)\in \mathcal{O}T$ y $f^{-1}(p(U))\in \mathcal{O}S$. Luego,
+\[
+f(s)=p(e)\in p(U)\Rightarrow s\in f^{-1}(p(U)).
+\]
+Para que $p^*=f^*p$ sea un homeomorfismo local necesitamos que para todo $x\in f^*E$ exista un abierto $W\subset f^*E$ tal que $x\in W$ y $p^*\mid_W\colon W\to p^*(W)$ es un homeomorfismo. 
+Consideremos $f^{-1}(p(U))\times U$ un abierto que contiene a $\langle x, e\rangle$ en $S\times E$. Asi, para 
+\[
+W=f^{-1}(p(U))\times U\cap f^*E,
+\]
+si $\langle s, e\rangle\in W$, entonces $f(s)=p(e)$. De aquí que debemos probar que $p^*\colon W\to f^{-1}(p(U))$ es homeomorfismo.\\
 
+Primero veamos que es suprayectiva. Sea $z\in f^{-1}(p(U))$, entonces $f(z)\in p(U)$ y como $p\mid_U\colon U\to p(U)$ es suprayectiva, existe $e\in U$ tal que $p(e)=f(z)$. Por lo tanto,
+\[
+\langle z, e\rangle\in W\quad\text{y}\quad p^*(\langle z, e\rangle)=z.
+\]
+
+Para la inyectividad, si $p^*(\langle z, v\rangle)=p^*(\langle z', v' \rangle)$, entonces $z=z'$ y como $f(z)=p(v)$ y $f(z')=p(v')$, se tiene que $p(v)=p(v')$. Al ser $p\mid_U\colon U\to p(U)$ inyectiva, se sigue que $v=v'$. 
+Por lo tanto, $\langle z, v\rangle=\langle z', v'\rangle$ y así $p^*$ es inyectiva.\\
+
+Notemos que $p^*$ es continua por construcción. Así, para ver que es abierta, sean $\langle s,e\rangle\in f^*E$ y $U\subseteq E$ abierto tal que $p\mid_U\colon U\to p(U)$ es un homeomorfismo y $p(U)\in \mathcal{O}T$. $W$ es 
+abierto en $f^*E$ y contiene a $\langle s,e\rangle$. Al ser $p\mid_U$ un homeomorfismo, existe $(p\mid_U)^{-1}\colon p(U)\to U$ y para $z\in f^{-1}(p(U))$ se tiene que
+\[
+h\colon f^{-1}(p(U))\to W\quad \mbox{dada por }\quad h(z)=\langle z, (p\mid_U)^{-1}(f(z))\rangle    
+\]
+es la inversa de $p^*\mid_W$ y es continua (pues $f$ y $p\mid_U$ son continuas). Por lo tanto, $p^*\mid_W$ es un homeomorfismo y así $p^*$ es un homeomorfismo local.
 \end{proof}
 
 \begin{lema}\label{Lem 2.5.6}
@@ -498,5 +527,14 @@ $f^*\colon \Top/T\to \Top/S$ es un funtor.
 \end{lema}
 
 \begin{proof}
+Sea $p\colon E\to T$ un objeto en $\Top/T$ y $\id_p\colon p\to p$ la identidad en $\Top/T$. Entonces, por la Definición \ref{Def 2.5.4}, $f^*\id_p\colon p^*\to p^*$ es la identidad en $\Top/S$. Por lo tanto, $f^*$ preserva identidades.\\
 
+Sean $k\colon p\to p'$ y $k'\colon p'\to p''$ morfismos en $\Top/T$. EL haz composición es $k'\circ k$ y por la Definición \ref{Def 2.5.4}, $(k'\circ k)^*\colon p^*\to p''^*$ es el morfismo inducido por la propiedad universal del pullback que hace conmutar el diagrama
+\[\begin{tikzcd}
+f^*E \arrow[rrr, "e"] \arrow[rd, "k^*", dashed] \arrow[rdd, "k'^* \circ k^*" description] \arrow[rddd, "p^*"', bend right] &                                                  &                                                           & E \arrow[ld, "k"'] \arrow[lddd, "p", bend left] \\
+                                                                                                                           & f^*E' \arrow[d, "k'^*"', dashed] \arrow[r, "e'"] & E' \arrow[d, "k'"]                                        &                                                 \\
+                                                                                                                           & f^*E'' \arrow[d, "p''^*"'] \arrow[r, "e''"]      & E'' \arrow[d, "p''"] \arrow[ruu, "k'\circ k" description] &                                                 \\
+                                                                                                                           & S \arrow[r, "f"]                                 & T                                                         &                                                
+\end{tikzcd}\]
+Por lo tanto, respecta composiciones.
 \end{proof}

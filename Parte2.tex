@@ -367,8 +367,6 @@ Sea $[s]_x\in \Lambda_P$. El abierto básico $\hat{s}(U)$ contiene a $[s]_x$ y a
 
 \section{$\H L/S\cong \Gav(S)$}
 
-\section{Morfismos ultrafinitos}
-
 \section{Cambio de base}
 
 Recordemos que para $S\in \Top$, $\mathcal{O}S$ es la categoría cuyos objetos son los abiertos de $S$ y los morfismos son las 
@@ -538,3 +536,102 @@ f^*E \arrow[rrr, "e"] \arrow[rd, "k^*", dashed] \arrow[rdd, "k'^* \circ k^*" des
 \end{tikzcd}\]
 Por lo tanto, respecta composiciones.
 \end{proof}
+
+De esta manera, para $(f\colon S\to T)\in \Top$, tenemos un funtor de $\Gav(t)\to \Gav(S)$ dado por
+
+\begin{equation}\label{Diagrama composicion}
+    \begin{tikzcd}
+	{\Gav(T)} & {\Top /T} & {\Top /S} & {\Gav(S)}
+	\arrow["\Lambda", from=1-1, to=1-2]
+	\arrow["{f^*}", from=1-2, to=1-3]
+	\arrow["\Gamma", from=1-3, to=1-4]
+\end{tikzcd}
+\end{equation}
+
+Para $G\in \Gav(T)$, notemos que $\Lambda G=\{[s\in GV]_y\mid y\in T, s\in GV\}$ y el homeomorfismo local $p\colon \Lambda G\to T$ es tal que
+$p([s\in GV]_y)=y$. Así
+\[
+f^*\Lambda G=\{(x, [s\in GV]_y)\in S\times \Lambda G\mid f(x)=p([s\in GV]_y)=y\}
+\]
+y el homeomorfismo local $p^*\colon f^*\Lambda G\to S$ es tal que $p^*(x, [s\in GV]_y)=x$.\\
+
+Si $p([s\in GV]_y)=y$, entonces $f^*\Lambda G=\{(x,[s\in GV]_y)\in S\times \Lambda G\mid f(x)=y\}$ y 
+\[
+f^*\Lambda G=\{(x, [s\in GV]_{f(x)})\in S\times \Lambda G\mid x\in S, s\in GV\}.
+\]
+
+Por último, $\Gamma f^* \Lambda G=\Gamma_{p^*}$. Así, 
+\[
+\Gamma_{p^*}(U)=\{t\colon U\to f^*\Lambda G \mbox{ continia}\mid p^*\circ t=i_U\}.
+\]
+con $U\in \mathcal{O}S$.\\
+
+Cada sección $t\in \Gamma_{p^*}(U)$ se describe a través de $t'\colon U\to \Lambda G$ continua, como 
+\[\begin{tikzcd}
+	U \\
+	& {f^*\Lambda G} & {\Lambda G} \\
+	& S & T
+	\arrow["t"', dashed, from=1-1, to=2-2]
+	\arrow["{t'}", from=1-1, to=2-3]
+	\arrow["i"', from=1-1, to=3-2]
+	\arrow["e"', from=2-2, to=2-3]
+	\arrow["{p^*}", from=2-2, to=3-2]
+	\arrow["p", from=2-3, to=3-3]
+	\arrow["f"', from=3-2, to=3-3]
+\end{tikzcd}\]
+La sección $\hat{s}\colon V\to \Lambda G$ induce una sección $t_s$ de $p^*$ como 
+\[\begin{tikzcd}
+	{f^{-1}(V)} & V \\
+	& {f^*\Lambda G} & {\Lambda G} \\
+	& S & T
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["{t_s}", dashed, from=1-1, to=2-2]
+	\arrow["i"', from=1-1, to=3-2]
+	\arrow["{\hat{s}}", from=1-2, to=2-3]
+	\arrow["e"', from=2-2, to=2-3]
+	\arrow["{p^*}", from=2-2, to=3-2]
+	\arrow["p", from=2-3, to=3-3]
+	\arrow["f"', from=3-2, to=3-3]
+\end{tikzcd}\]
+para $V\in \mathcal{O}T$ y $s\in GV$.\\
+
+Si $x\in f^{-1}(V)$, entonces $p(\hat{s}(f(x)))=p([s\in GV]_{f(x)})$ y $t_s(x)=(x, [s\in GV]_{f(x)})$.
+
+\begin{definition}\label{Def 2.5.7}
+Denotamos por $f^*\colon \Gav(T)\to \Gav(S)$ al funtor compuesto $f^*=\Gamma\circ f^*\circ \Lambda$.
+\end{definition}
+
+\begin{lema}\label{Lema 2.5.8}
+Consideremos $X\in \Top$. Una función $k\colon f^*\Gamma G\to X$ es continua si y solo si 
+\[\begin{tikzcd}
+	{f^{-1}(W)} & {f^*\Lambda G} & X
+	\arrow["{t_r}", from=1-1, to=1-2]
+	\arrow["k", from=1-2, to=1-3]
+\end{tikzcd}\]
+es continua para todo $W\subseteq T$ y para toda $r\in GW$.
+\end{lema}
+
+\begin{proof}
+
+\end{proof}
+
+\section{Morfismos ultrafinitos}
+
+Sabemos que si ($f\colon S\to T)\in \Top$, $f$ induce la siguiente adjunción
+\[
+\begin{tikzcd}
+\Gav(S) \arrow[rr, "f_*", bend left] & \perp & \Gav(T) \arrow[ll, "f^*", bend left]
+\end{tikzcd}
+\]
+donde $f^*\colon \Gav(T)\to \Gav(S)$ es exacto izquierdo.\\
+
+Además, para el funtor $f_*\colon \Gav(S)\to \Gav(T)$ tenemos que si $V\in \mathcal{O}T$ y $F\in \Gav(S)$, $f_*F(V)=F(f^{-1}(V))$ 
+y para $(h\colon F\to G)\in \Gav(S)$, $f_h(V)=h_{f^{-1}(V)}$. Queremos ver que $f_*$ preserva:
+\begin{enumerate}
+\item Objeto inicial.
+\item Epimorfismos.
+\item Sumas finitas.
+\end{enumerate}
+
+Primero, si $\mathbf{0}\in \Gav(S)$ queremos ver que para todo $\emptyset \neq U\in \mathcal{O}S$, $\mathbf{0}(U)=\emptyset$. Sea 
+

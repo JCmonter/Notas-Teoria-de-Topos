@@ -633,5 +633,110 @@ y para $(h\colon F\to G)\in \Gav(S)$, $f_h(V)=h_{f^{-1}(V)}$. Queremos ver que $
 \item Sumas finitas.
 \end{enumerate}
 
-Primero, si $\mathbf{0}\in \Gav(S)$ queremos ver que para todo $\emptyset \neq U\in \mathcal{O}S$, $\mathbf{0}(U)=\emptyset$. Sea 
+Primero, si $\mathbf{0}\in \Gav(S)$ queremos ver que para todo $\emptyset \neq U\in \mathcal{O}S$, $\mathbf{0}(U)=\emptyset$. Sea $\mathbf{0}\colon \mathcal{O}S^{\op}\to \Con$
+la pregavilla tal que $\mathbf{0}(U)=\emptyset$ para todo $\emptyset \neq U\in \mathcal{O}S$. Notemos que 
+\[
+\Lambda (\mathbf{0})=\{[s\in \mathbf{0}U]_x\mid x\in S, s\in \mathbf{0}U\}
+\]
+y $\mathbf{0}U=\emptyset$, entonces $\Lambda(\mathbf{0})=\emptyset$. Luego, $\Gamma_\emptyset U=\{s\colon U\to \emptyset\mid s \mbox{ es sección de }i\colon \emptyset \to S\}$. Por lo tanto, 
+$\Gamma_\emptyset U=\emptyset$ cuando $U\neq \emptyset$.
 
+\begin{lema}\label{Prop 3.0.11}
+    Sea $(f\colon S\to T)\in \Top$, entonces el funtor $f_*\colon \Gav(S)\to \Gav(T)$ preserva el objeto inicial si y solo si $s(S)$ es denso en $T$.
+\end{lema}
+
+\begin{proof}
+\begin{description}
+\item[$\Rightarrow)$] Supongamos que $f_*$ preserva el objeto inicial. Sea $V\in \mathcal{O}T$ tal que $V\neq\emptyset$. Entonces
+\[
+f_*\mathbf{0}(V)=\mathbf{0}(f^{-1}(V))=\emptyset\Rightarrow f^{-1}(V)\neq \emptyset.
+\]
+Notemos que $f(S)$ es denso en $T$ si para todo $V\in \mathcal{O}T$ se tiene que $V\cap f(S)\neq \emptyset$. Si $f^{-1}(V)\neq \emptyset$, existe $x\in S$ tal que $f(x)\in V$. Por lo tanto, $V\cap f(S)\neq \emptyset$ y así $f(S)$ es denso en $T$.
+
+\item[$\Leftarrow)$] Supongamos que $f(S)$ es denso en $T$. Sea $V\in \mathcal{O}T$ tal que $V\neq \emptyset$, entonces $V\cap f(S)\neq \emptyset$. Por lo tanto, existe $x\in S$ tal que $f(x)\in V$ y así $f^{-1}(V)\neq \emptyset$. Luego, 
+$\mathbf{0}(f^{-1}(V))=\emptyset$ y por lo tanto $f_*\mathbf{0}(V)=\emptyset$. Así, $f_*$ preserva el objeto inicial.
+\end{description}
+\end{proof}
+
+Ahora, enunciaremos las condiciones necesarias y suficientes para que $f_*$ preserve epimorfismos.
+
+\begin{lema}\label{Lema 3.0.12}
+Si para cada $V\in \mathcal{O}T$, $y\in V$ y $\{U_i\}_{i\in I}\subseteq \mathcal{O}S$ una cubierta abierta de $f^{-1}(V)$, existen $W\in\mathcal{O}T$ tal que $y\in W$ y $\{W_i\}_{i\in I}\subseteq \mathcal{O}S$ una cubierta 
+abierta ajena de $f^{-1}(W)$ con la propiedad que $W_i\subseteq U_i$ para todo $i\in I$. Enotnces para todo $q\colon E\to f^{-1}(V)$ epimorfismo en $HL/S$, existe $t\colon f^{-1}(W)\to E$ tal que el diagrama 
+\[\begin{tikzcd}
+	{f^{-1}(W)} && {f^{-1}(V)} \\
+	& E
+	\arrow[hook, from=1-1, to=1-3]
+	\arrow["t"', from=1-1, to=2-2]
+	\arrow["q"', from=2-2, to=1-3]
+\end{tikzcd}\]
+conmuta.
+\end{lema}
+
+\begin{proof}
+Sea $q\colon E\to f^{-1}(V)$ un epimorfismo en $HL/S$. Si $x\in f^{-1}(V)$, entonces tenemos abiertos $U_x\subset f^{-1}(V)$ y $U_x'\subset E$ tales que 
+\[
+q\colon U_x'\to U_x
+\]
+es un homeomorfismo. Así, $\{U_x\}_{x\in f^{-1}(V)}$ es una cubierta abierta de $f^{-1}(V)$. Por hipótesis, existen $W\in \mathcal{O}T$ tal que $y\in W$ y $\{W_x\}_{x\in f^{-1}(V)}$ una cubierta abierta ajena de $f^{-1}(W)$ con la propiedad que $W_x\subseteq U_x$ para todo $x\in f^{-1}(V)$. Además 
+$q_{\mid_{U_x'}}\colon U_x'\to q(U_x')$ es un homeomorfismo, entonces definimos 
+\[t_x=(q_{\mid_{U_x}})^{-1}\colon W_x\to E.
+\]
+y así tomamos $t\colon f^{-1}(W)\to E$ dada por $t_{\mid_{W_x}}=t_x$. Por construcción, $q\circ t=i_{f^{-1}(W)}$ y el diagrama conmuta.
+\end{proof}
+
+\textbf{Escribir los criterios para la prueba del siguiente lema.}
+
+\begin{lema}\label{Lema 3.0.13}
+Sea $h\colon E\to E'$ tal que el diagrama
+\[\begin{tikzcd}
+	E && {E'} \\
+	& S
+	\arrow["h", from=1-1, to=1-3]
+	\arrow["p"', from=1-1, to=2-2]
+	\arrow["{p'}"', from=2-2, to=1-3]
+\end{tikzcd}\]
+conmuta. Entonces $\Lambda f_*\Gamma(h)$ es un epimorfismo si y solo si para todo $V\in \mathcal{O}T$, $y\in V$ y cualquier sección $s\colon f^{-1}(V)\to E'$ de $p'$, existen $W\in \mathcal{O}T$ con $y\in W$ y una sección $t\colon f^{-1}(W)\to E$ de $p$ tal que el diagrama
+\begin{equation}\label{Diagrama Lema 3.0.13}
+\begin{tikzcd}
+    {f^{-1}(W)} & {f^{-1}(V)} \\
+    E & {E'}
+    \arrow["t", from=1-1, to=2-1]
+    \arrow["s"', from=1-2, to=2-2]
+    \arrow["h", from=2-1, to=2-2]
+    \arrow[hook, from=1-1, to=1-2]
+\end{tikzcd}
+\end{equation}
+conmuta.
+\end{lema}
+
+\begin{proof}
+\begin{description}
+\item[$\Rightarrow)$] Para $h\colon E\to E'$ tenemos que $\Lambda f_*\Gamma(h)\colon \Lambda f_*\Gamma E\to \Lambda f_*\Gamma E'$ es un morfismo en $HL/T$ tal que si $r\in \Gamma_p(f^{-1}(V))$, entonces 
+\[
+\Lambda f_*\Gamma(h)([r\in \Gamma_{p}(f^{-1}(V))]_y)=[h\circ r\in \Gamma_{p'}(f^{-1}(V))]_y. 
+\]
+Sean $V\in \mathcal{O}T$, $y\in V$ y $s\colon f^{-1}(V)\to E'$ una sección de $p'$. 
+Supongamos que $\Lambda f_*\Gamma(h)$ es un epimorfismo, entonces existe $[t\in \Gamma_{p}(f^{-1}(V))]_y\in \Lambda f_*\Gamma(E)$ tal que
+\begin{equation}\label{Eq Lema 3.0.13}
+[h\circ t\in \Gamma_{p'}f^{-1}(V)]_y=[s\in \Gamma_{p'}f^{-1}(V)]_y.
+\end{equation}
+De aquí que existe un abierto $W\subset V$ con $y\in W$ tal que $h\circ t_{\mid_{f^{-1}(W)}}=s_{\mid_{f^{-1}(W)}}$. Por lo tanto, el diagrama (\ref{Diagrama Lema 3.0.13}) conmuta.
+
+\item[$\Leftarrow)$] Supongamos que para todo $V\in \mathcal{O}T$, $y\in V$ y cualquier sección $s\colon f^{-1}(V)\to E'$ de $p'$, existen $W\in \mathcal{O}T$ con $y\in W$ y una sección $t\colon f^{-1}(W)\to E$ de $p$ tal que el diagrama (\ref{Diagrama Lema 3.0.13}) conmuta. 
+De aquí que \ref{Eq Lema 3.0.13} se cumple y 
+\[
+[s_{\mid_{f^{-1}(V)}}\in \Gamma_{p'}(f^{-1}(W))]_y=[s\in \Gamma_{p'}(f^{-1}(V))]_y.
+\]
+Por lo tanto, $\Lambda f_*\Gamma(h)$ es un epimorfismo.
+\end{description}
+\end{proof}
+
+\begin{prop}\label{Lema 3.0.14}
+Consideremos $(f\colon S\to T)\in \Top$. El funtor $f_*\colon \Gav(S)\to \Gav(T)$ preserva epimorfismos si y solo si para todo $V\in \mathcal{O}T$, $y\in V$ y $\{U_i\}_{i\in I}\subseteq \mathcal{O}S$ una cubierta abierta de $f^{-1}(V)$, existe $W\in\mathcal{O}T$ tal que $y\in W$ y $\{W_i\}_{i\in I}\subseteq \mathcal{O}S$ 
+una cubierta abierta ajena de $f^{-1}(W)$ con la propiedad que $W_i\subseteq U_i$ para todo $i\in I$.
+\end{prop}
+
+\begin{proof}
+
+\end{proof}

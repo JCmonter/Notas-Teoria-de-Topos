@@ -685,7 +685,19 @@ $q_{\mid_{U_x'}}\colon U_x'\to q(U_x')$ es un homeomorfismo, entonces definimos
 y así tomamos $t\colon f^{-1}(W)\to E$ dada por $t_{\mid_{W_x}}=t_x$. Por construcción, $q\circ t=i_{f^{-1}(W)}$ y el diagrama conmuta.
 \end{proof}
 
-\textbf{Escribir los criterios para la prueba del siguiente lema.}
+Para la prueba del siguiente resultado, hacemos uso de los siguientes criterios. Estos pueden ser encontrados en \textbf{Citar los criterios}.
+
+\begin{description}
+\item[Criterio 1:] Sea $h\colon F\to G$ un morfismo en $\Gav(S)$. Entonces $h$ es un epimorfismo si y solo si para todo $U\in \mathcal{O}S$ y $s\in G(U)$, existe una cubierta abierta 
+$\{U_i\}_{i\in I}$ de $U$ y para cada $i\in I$ una sección $t_i\in F(U_i)$ tal que $h_{U_i}(t_i)=s_{\mid_{U_i}}$, en otras palabras, para $y\in U$
+\[
+[s\in G(U)]_y=[h_{U_i}(t_i)\in G(U_i)]_y.
+\]
+
+\item[Criterio 2:] $\Lambda f_*\Gamma(h)$ es un epimorfismo en $HL/T$ si y solo si para todo $x\in S$ y germen $s_x$ de $G$ en $x$ existe un germen $t_x$ en $F$ con la propiedad que 
+\[[h_{U}(t_x)\in G(U)]_{f(x)}=[s_x\in G(U)]_{f(x)}\]
+para algún abierto $U\in \mathcal{O}T$ que contiene a $f(x)$.
+\end{description}
 
 \begin{lema}\label{Lema 3.0.13}
 Sea $h\colon E\to E'$ tal que el diagrama
@@ -721,14 +733,14 @@ Supongamos que $\Lambda f_*\Gamma(h)$ es un epimorfismo, entonces existe $[t\in 
 \begin{equation}\label{Eq Lema 3.0.13}
 [h\circ t\in \Gamma_{p'}f^{-1}(V)]_y=[s\in \Gamma_{p'}f^{-1}(V)]_y.
 \end{equation}
-De aquí que existe un abierto $W\subset V$ con $y\in W$ tal que $h\circ t_{\mid_{f^{-1}(W)}}=s_{\mid_{f^{-1}(W)}}$. Por lo tanto, el diagrama (\ref{Diagrama Lema 3.0.13}) conmuta.
+De aquí, por el Criterio 1, existe un abierto $W\subset V$ con $y\in W$ tal que $h\circ t_{\mid_{f^{-1}(W)}}=s_{\mid_{f^{-1}(W)}}$. Por lo tanto, el diagrama (\ref{Diagrama Lema 3.0.13}) conmuta.
 
 \item[$\Leftarrow)$] Supongamos que para todo $V\in \mathcal{O}T$, $y\in V$ y cualquier sección $s\colon f^{-1}(V)\to E'$ de $p'$, existen $W\in \mathcal{O}T$ con $y\in W$ y una sección $t\colon f^{-1}(W)\to E$ de $p$ tal que el diagrama (\ref{Diagrama Lema 3.0.13}) conmuta. 
 De aquí que \ref{Eq Lema 3.0.13} se cumple y 
 \[
 [s_{\mid_{f^{-1}(V)}}\in \Gamma_{p'}(f^{-1}(W))]_y=[s\in \Gamma_{p'}(f^{-1}(V))]_y.
 \]
-Por lo tanto, $\Lambda f_*\Gamma(h)$ es un epimorfismo.
+Por lo tanto, por el Criterio 2, $\Lambda f_*\Gamma(h)$ es un epimorfismo.
 \end{description}
 \end{proof}
 

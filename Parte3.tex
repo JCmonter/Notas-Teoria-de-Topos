@@ -1,6 +1,74 @@
 \chapter{Gavillas sobre Marcos}
 
+Lo que se ha abordado hasta ahora es la teoría de haces y gavillas de conjuntos sobre espacios topológicos. En \cite{Merino2002}, se encargan de trasladar las nociones de morfismo étale y morfismos ultrafinitos a un contexto más general, el de los locales. En este capítulo se presentan algunas de las ideas principales de dicha referencia 
+pero viéndolo desde el enfoque de marcos. Para tener más información sobre teoría de marcos, se puede consultar (\textbf{citar las notas de Ángel y bibliografía básica sobre teoría de marcos}).
 \section{Marcos y gavillas}
+
+En el sentido categórico, trabajar con locales y trabajar con marcos, en esencia podría parecer lo mismo, ya que la categoría de locales es la categoría opuesta a la categoría de marcos. Sin embargo, en la práctica, trabajar con marcos suele ser más sencillo. 
+Lo primero que haremos es dar las herramientas necesarias para trasladar las nociones vistas en capítulos anteriores al lenguaje de marcos.
+
+\begin{definition}
+    Un \emph{marco} es una retícula completa $(A, \leq, \bigvee, \wedge, 0, 1)$ que satisface la siguiente propiedad distributiva:
+    \[
+    a\wedge \bigvee x=\bigvee \{a\wedge b\mid x\in X\}
+    \]
+    para todo $a\in A$ y $X\subseteq A$.
+\end{definition}
+
+\begin{definition}
+    Sean $A$ y $B$ dos marcos. Un \emph{morfismo de marcos} es una función monótona $f\colon A\to B$ que preserva
+    la estructura de la retícula, es decir, para todo $X\subseteq A$ y $a,b\in A$ se cumple:
+    \begin{itemize}
+        \item $f(\bigvee X)=\bigvee \{f(x)\mid x\in X\}$.
+        \item $f(a\wedge b)=f(a)\wedge f(b)$.
+        \item $f(0)=0$ y $f(1)=1$.
+    \end{itemize}
+\end{definition}
+
+De esta manera, la categoría de marcos $\Frm$ es la categoría cuyos objetos son marcos y cuyos morfismos son morfismos de marcos, y como mencionamos antes, la categoría de locales $\Loc$ es la categoría opuesta a $\Frm$.\\
+
+Si $f:A\to B$ es un morfismo de marcos, entonces $f$ tiene un adjunto derecho $f_*:B\to A$ y cumple la siguiente propiedad:
+\[
+f(a)\leq b \iff a\leq f_*(b)
+\]
+para todo $a\in A$ y $b\in B$. De manera general, podemos calcular el adjunto derecho de un morfismo de marcos $f:A\to B$ como:
+\[
+f_*(b)=\bigvee \{a\in A\mid f(a)\leq b\}
+\]
+
+\begin{definition}
+Sea $A\in \Frm$. La operación \emph{implicación} (o también conocida como implicación de Heyting), denotada por $(a\succ b)$ para $a, b\in A$, se define por:
+\[
+a\wedge c \leq b \iff c \leq (a\succ b).
+\]
+\end{definition}
+
+Consideremos los morfismos $f\colon A\to A$ y $f_*\colon A\to A$, dados por
+\[
+f(x)=a\wedge x \quad \text{y} \quad f_*(x)=(a\succ x),
+\]
+entonces $f(x)\leq y$ si y solo si $x\leq f_*(y)$, es decir, $x\wedge a\leq y$ si y solo si $x\leq (a\succ y)$. En otras palabras,
+implicar es adjunto derecho de calcular ínfimo. Por lo tanto, la implicación se puede calcular como
+\[
+(a\succ b)=\bigvee \{x\in A\mid a\wedge x \leq b\}.
+\]
+
+El siguiente resultado proporciona algunas propiedades básicas de la implicación.
+
+\begin{prop}
+    Consideremos $A$ un marco y $a,b,c\in A$. Entonces 
+    \begin{itemize}
+        \item $1\succ a=a$.
+        \item $a\succ (b\wedge c)=(a\succ b)\wedge (a\succ c)$.
+        \item $(a\vee b)\succ c=(a\succ c)\wedge (b\succ c)$.
+        \item $a\leq b$ si y solo si $1\leq (a\succ b)$.
+        \item $a\leq (b\succ c)$ si y solo si $a\wedge b \leq c$.
+    \end{itemize}
+\end{prop}
+
+\subsection{Núcleos y cocientes en marcos}
+Cuando trabajamos en $\Top$, la noción de subespacio puede ser capturada mediante la noción de sublocal. A su vez, los sublocales pueden ser estudiados de manera 
+algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsección explicara brevemente la relación entre núcleos y sublocales.
 
 \subsection{Morfismos abiertos}
 

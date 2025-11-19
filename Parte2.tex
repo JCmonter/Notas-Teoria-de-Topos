@@ -193,7 +193,7 @@ Notemos que, para un punto $x\in S$, los elementos de $P_x$ son precisamente las
     Por lo tanto, $t$ es única y $\{\germ_x:PU\to P_x\}$ es un cócono límite.
 \end{proof}
 \begin{lema}
-    Cualquier morfismo $h:P\to Q$ de pregavillas (cualquier transformación natural), en cada punto $s\in S$, induce una única función $h_x:P_x\to Q_w$ tal que el diagrama 
+    Cualquier morfismo $h:P\to Q$ de pregavillas (cualquier transformación natural), en cada punto $x\in S$, induce una única función $h_x:P_x\to Q_x$ tal que el diagrama 
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.3\linewidth]{img/diagram2.3.3.png}
@@ -258,7 +258,7 @@ la unión disjunta de germenes sobre $x\in S$. Para toda sección $s\in PU$, def
     \end{itemize}
 \end{proof}
 
-\begin{obs}
+\begin{obs}\label{observacion 2.3.9}
 Sean $U,V\in \O(S)$ tales que $V\subset U$ y $s\in PU$. Entonces $\hat{s}(V)=\widehat{s\mid_V}(V)$ para todo $s\in PU$.
 \end{obs}
 
@@ -334,15 +334,15 @@ Sea $[s]_x\in \Lambda_P$, entonces $p([s]_x)=x=q([h_U(s)]_x)$ y $\langle h_x: P_
 \end{proof}
 
 \begin{lema}
-$P\to \Lambda_P$ es un funtor de pregavillas a hazes.
+La asignación $P\mapsto \Lambda_P$ determina un funtor de pregavillas a haces.
 \end{lema}
 
 \begin{proof}
-Sea $\id_p\colon P\to P$ la identidad en $\Con^{\O(S)^{op}}$, entonces $\id_{p_x}$ es la función identidad para cada $x\in S$. De aquí que $\langle \id_{p_x}: P_x\to P_x\rangle_{x\in S}$ es la identidad en $\Lambda_P$. Por lo tanto, $P\to \Lambda_P$ preserva identidades.
+Sea $\id_p\colon P\to P$ la identidad en $\Con^{\O(S)^{op}}$, entonces $\id_{p_x}$ es la función identidad para cada $x\in S$. De aquí que $\langle \id_{p_x}: P_x\to P_x\rangle_{x\in S}$ es la identidad en $\Lambda_P$. Por lo tanto preserva identidades la asignación.
 
-Sean $h\colon P\to Q$ y $g\colon Q\to R$ morfismos de pregavillas, entonces $g_x\circ h_x=(g\circ h)_x$ para cada $x\in S$. Por lo tanto, $\langle g_x\circ h_x: P_x\to R_x\rangle_{x\in S}$ es la composición de morfismos de hazes. Así, $P\to \Lambda_P$ preserva composiciones.
+Sean $h\colon P\to Q$ y $g\colon Q\to R$ morfismos de pregavillas, entonces $g_x\circ h_x=(g\circ h)_x$ para cada $x\in S$. Por lo tanto, $\langle g_x\circ h_x: P_x\to R_x\rangle_{x\in S}$ es la composición de morfismos de hazes. Así, la asignación preserva composiciones.
 
-Por lo tanto, $P\to \Lambda_P$ es un funtor de pregavillas a hazes.
+Por lo tanto, $\Lambda$ es un funtor de pregavillas a haces.
 \end{proof}
 
 \begin{definition}
@@ -357,7 +357,7 @@ Toda sección de un homeomorfismo local es una función abierta.
 Sea $p\colon T\to S$ un homeomorfismo local, $s\colon U\to T$ una sección de $p$ y $V\subset U$ un abierto. Sea $y\in s(V)$ y como $p$ es un homeomorfismo local, existe un abierto $W\subset S$ tal que $p\mid_W$ es un homeomorfismo. Entonces, $p(W)$ es un abierto de $T$ y así $p(W)\cap V$ es abierto. Al ser $s$ una sección de $p$, se tiene que $p(W\cap s(V))=p(W)\cap V$. Además, $p\mid_W$ es una función abierta, $W\cap s(V)$ es una vecindad abierta de $x$ contenida en $s(V)$. Por lo tanto, $s(V)$ es abierto en $T$.
 \end{proof}
 
-\begin{lema}
+\begin{lema}\label{haz de germenes es homeolocal}
 La función $p\colon \Lambda_P\to S$ es un homeomorfismo local.
 \end{lema}
 
@@ -365,7 +365,102 @@ La función $p\colon \Lambda_P\to S$ es un homeomorfismo local.
 Sea $[s]_x\in \Lambda_P$. El abierto básico $\hat{s}(U)$ contiene a $[s]_x$ y al ser $\hat{s}$ una sección de $p$, $p(\hat{s}(U))=U$. Luego, $\hat{s}\colon U\to \hat{s}(U)$ es un homeomorfismo. Por lo tanto, $p\mid_{\hat{s}(U)}\colon \hat{s}(U)\to p\hat{s}(U)$ es un homeomorfismo.
 \end{proof}
 
-\section{$\H L/S\cong \Gav(S)$}
+\section{$\H L/S\simeq \Gav(S)$}
+
+Vamos a ver primero que hay una adjunción entre la categoría $\Con^{\mathcal{O}S^\op}$ de pregavillas sobre un espacio $S\in\Top$ y la categoría $\Top /S$ de haces sobre $S$.
+Para esto notemos que dada una pregavilla $P\in\Con^{\mathcal{O}S^\op}$ y la gavilla $\Gamma\Lambda_P$ de las secciones del haz 
+$\Lambda_P\to S$, podemos construir, para cada abierto $U\in\mathcal{O}S$, la siguiente función 
+
+$$\eta_{PU}:PU\to\Gamma\Lambda_PU, \ \ \ \ \  \eta_{PU}(s)=\widehat{s}$$
+
+\begin{lema}
+    $\eta_P:=(\eta_{PU}:PU\to\Gamma\Lambda_PU)_{U\in\mathcal{O}S^\op}$ es una transformación natural del funtor $P$ al funtor $\Gamma\Lambda_P$.
+\end{lema}
+
+\begin{proof}
+    Sean dos abiertos $V\subseteq U\in\mathcal{O}S$ y $s\in PU$. Por la observación \ref{observacion 2.3.9}, se tiene que $\eta_{PU}(s)\mid_V=\hat{s}\mid_V=\widehat{s\mid_V}=\eta_{PV}(s\mid_V)$. Lo que significa que el cuadrado natural
+    \[\begin{tikzcd}
+        PU && {\Gamma\Lambda_PU} \\
+        PV && {\Gamma\Lambda_PV}
+        \arrow["{\eta_{PU}}", from=1-1, to=1-3]
+        \arrow["{|_V}"', from=1-1, to=2-1]
+        \arrow["{|_V}", from=1-3, to=2-3]
+        \arrow["{\eta_{PV}}"', from=2-1, to=2-3]
+    \end{tikzcd}\] conmuta, y por lo tanto $\eta_P$ es una transformación natural.
+\end{proof}
+
+\begin{lema}
+    $\eta:=(\eta_P:P\Rightarrow\Gamma\Lambda_P)_{P\in\Con^{\mathcal{O}S^\op}}$ es una transformación natural del funtor $\id_{\Con^{\mathcal{O}S^\op}}$
+    a la composición de funtores $\Gamma\Lambda$
+\end{lema}
+
+\begin{proof}
+    Sea $h:P \Rightarrow Q\in\Con^{\mathcal{O}S^\op}$, queremos ver que el cuadrado
+    \[\begin{tikzcd}
+        P && {\Gamma\Lambda_P} \\
+        Q && {\Gamma\Lambda_Q}
+        \arrow["{\eta_{P}}", Rightarrow, from=1-1, to=1-3]
+        \arrow["h"', Rightarrow, from=1-1, to=2-1]
+        \arrow["{\Gamma\Lambda h}", Rightarrow, from=1-3, to=2-3]
+        \arrow["{\eta_{Q}}"', Rightarrow, from=2-1, to=2-3]
+    \end{tikzcd}\] conmuta. Para esto tomamos un abierto $U\in\mathcal{O}S$ y veamos que el cuadrado
+    \[\begin{tikzcd}
+        PU && {\Gamma\Lambda_PU} \\
+        QU && {\Gamma\Lambda_QU}
+        \arrow["{\eta_{PU}}", from=1-1, to=1-3]
+        \arrow["{h_U}"', from=1-1, to=2-1]
+        \arrow["{(\Gamma\Lambda h)_U}", from=1-3, to=2-3]
+        \arrow["{\eta_{QU}}"', from=2-1, to=2-3]
+    \end{tikzcd}\] conmuta. Sea $s\in PU$, entonces $\eta_{PU}(s)=\widehat{s}$, y por la definición de la composición $\Lambda\Gamma$ tenemos $(\Gamma\Lambda h)_U(\widehat{s})=h_x\circ \widehat{s}$.
+    Entonces:
+    $$h_x\circ\widehat{s}(x)=h_x([s\in PU]_x)=[h_U(s)\in QU]_x=\widehat{h_U(s)}(x).$$
+    Lo que prueba la conmutatividad de los diagramas.
+\end{proof}
+
+\begin{lema}
+    Sea $h:T\to S\in\Top /S$, entonces $\varepsilon_h:\Lambda\Gamma_h \to T$ definida como 
+    $$\varepsilon_h([s\in\Gamma_hU]_x)=s(x)$$ 
+    es un morfismo de haces.
+\end{lema}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{lema}
+    $\varepsilon:=(\varepsilon_h:\Lambda\Gamma_h \to T)_{T\xrightarrow{h}S\in\Top /S}$ es una transformación natural
+    de la composición de funtores $\Lambda\Gamma$ al funtor $\id_{\Top /S}$.
+\end{lema}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{theo}
+    El funtor $\Lambda$ es adjunto izquierdo del funtor $\Gamma$
+\end{theo}
+
+\begin{proof}
+    
+\end{proof}
+
+Notemos que tenemos unas subcategorías 
+$$\Gav(S)\subseteq\Con^{\mathcal{O}S^\op}, \ y \ \H L/S\subseteq\Top /S$$
+donde $\H L/S$ los objetos son haces que son homeomorfismos locales. También recordemos que para cualquier pregavilla
+$P\in\Con^{\mathcal{O}S^\op}$ el haz $\Lambda_P\to S$ es un homeomorfismo local (Lema \ref{haz de germenes es homeolocal});
+y para cada haz $T\xrightarrow{h}S\in\Top /S$, el funtor $\Gamma_h\in\Con^{\mathcal{O}S^\op}$ es una gavilla (Referencia pendiente).
+
+Esto nos dice que podemos restringir $\Lambda$ y $\Gamma$ a $\Gav(S)$ y $\H L/S$ respectivamente.
+
+
+\begin{theo}
+    Para todo espacio topológico $S\in\Top$, las categorías $\H L/S$ y $\Gav(S)$ son equivalentes.
+\end{theo}
+
+\begin{proof}
+    
+\end{proof}
+
 
 \section{Cambio de base}
 

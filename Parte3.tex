@@ -43,7 +43,7 @@ a\wedge c \leq b \iff c \leq (a\succ b).
 \]
 \end{definition}
 
-Consideremos los morfismos $f\colon A\to A$ y $f_*\colon A\to A$, dados por
+Consideremos los morfismos de copos $f\colon A\to A$ y $f_*\colon A\to A$, dados por
 \[
 f(x)=a\wedge x \quad \text{y} \quad f_*(x)=(a\succ x),
 \]
@@ -81,11 +81,130 @@ algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsec
     \end{itemize}
 \end{definition}
 
-\begin{obs}
-    En general, para caulquier par de morfismos adjuntos $f_l\dashv f$, se cumple una desigualdad de la identidad de Frobenius.
+\begin{obs}\label{obs desigualdad Frobenius}
+    En general, para cualquier par de morfismos adjuntos $f_l\dashv f$, se cumple una desigualdad de la identidad de Frobenius.
     Sabemos que, por un lado, $b\wedge f(a)\leq b$ y entonces $f_l(b\wedge f(a))\leq f_l(b)$; y por otro lado,
     como $b\wedge f(a)\leq f(a)$, tenemos que $f_l(b\wedge f(a))\leq f_l(f(a))\leq a$; por lo tanto $f_l(b\wedge f(a))\leq f_l(b)\wedge a.$
 \end{obs}
+
+\begin{ejp}
+    Considere una función $f:S\to T$ continua y abierta, entonces tenemos que el morfismo de marcos $f^{-1}:\mathcal{O}T\to\mathcal{O}S$, dado por la preimagen, es un morfismo abierto.
+    Pues ya al ser la función abierta, tenemos que el morfismo de copos $f:\mathcal{O}S\to\mathcal{O}T$, dado por la imagen directa, es adjunto izquierdo de $f^{-1}$, ya que
+    $$f(U)\subseteq V \iff U\subseteq f^{-1}(V)$$
+    para todo $U\in\mathcal{O}S$ y $V\in\mathcal{O}T$. Además satisface la identidad de Frobenius
+    $$f(U\cap f^{-1}(V))=f(U)\cap V$$
+\end{ejp}
+
+\begin{ejp}
+    Consideremos un marco $A$ y un elemento $a\in A$, entonces el morfismo de marcos $a\wedge -:A\to \downarrow a$ es un morfismo abierto. Veamos que la inclusión
+    de la sección inferior en el marco, es su adjunto izquierdo: Ya que para $x\in A$ y $y\in\downarrow a$ siempre se tiene que 
+    $$y\leq a\wedge x \iff y\leq x $$
+    Y satisface Frobenius, pues
+    $$y\wedge(a\wedge x)=(y\wedge a)\wedge x=y\wedge x$$
+\end{ejp}
+
+\begin{lema}\label{nucleo abierto iff paso al cociente abierto}
+    Sea $A$ un marco y $j:A\to A$ un núcleo del marco. Entonces $j$ es un núcleo abierto si y solo si el morfismo de marcos $j^*:A\to A_j$ es un morfismo abierto.
+\end{lema}
+
+\begin{proof}
+    Si $j$ es abierto, entonces existe un elemento $a\in A$ tal que $j=v_a$, veamos entonces que $v_a^*:A\to A_{v_a}$ es un morfismo abierto. Es claro que su adjunto izquierdo
+    es $a\wedge -:A_{v_a}\to A$, por la misma definición de la implicación. Y por otro lado, veamos que satisface Frobenius, pues para $x\in A$ y $y\in A_{v_a}$ tenemos
+    $$a\wedge(y\wedge v_a(x))=(a\wedge(a\succ x))\wedge y=(a\wedge x)\wedge y = x\wedge(a\wedge y).$$
+    Por lo tanto $v_a^*$ es un morfismo abierto.
+
+    Por otro lado supongamos que $j^*$ es un morfismo abierto, por lo tanto existe $j_l:A_j\to A$ tal que $j_l\dashv j^*$ y $j_l(y\wedge j^*(x))=j_l(y)\wedge x$ para 
+    todo $x\in A$ y $y\in A_j$. Definamos $a:=f_l(1)$ y notemos que dado $x\in A_j$ tenemos que 
+    $$j_l(x)=j_l(j^*(x))=j_l(j^*(x)\wedge 1)=x\wedge j_l(1)$$
+    por lo tanto $j_l=a\wedge -$ y como los adjuntos son únicos, al ser la implicación su adjunto derecho, tenemos que $j^*=a\succ - = v_a^*$, lo que significa que $j$
+    es un núcleo abierto.
+\end{proof}
+
+\begin{prop}\label{nucleo de morfismo abierto, es abierto}
+    Sea $f:A\to B$ un morfismo de marcos abierto. Entonces el núcleo $k=f_*f$ es un núcleo abierto.
+\end{prop}
+
+\begin{proof}
+    Usaremos el lema anterior (\ref{nucleo abierto iff paso al cociente abierto}), y veamos que $k^*:A\to A_k$ es un morfismo abierto. Para esto, consideremos que $f$
+    es un morfismo abierto y por lo tanto existe $f_l\dashv f$ que satisface Frobenius. Ahora definamos el morfismo $k_l: A_k\to A$ como $k_l(y):=f_l(f(y))$ y veamos que son adjuntos.
+
+    Sean $x\in A$ y $y\in A_k$, entonces
+    $$ y\leq k^*(x)=f_*(f(x)) \iff f(y)\leq f(x) \iff k_l(y)=f_l(f(y))\leq x$$
+    ya que $f_l\dashv f\dashv f_*$. Luego veamos que $k_l$ satisface Frobenius, pues
+    $$k_l(k^*(x)\wedge y)=f_l(f(k^*(x)\wedge y))=f_l(ff_*f(x)\wedge f(y))=f_l(f(x)\wedge f(y))=x\wedge f_l(f(y))=x\wedge k_l(y)$$
+    considerando propiedades de morfismos adjuntos y que $f_l$ ya satisface Frobenius.
+\end{proof}
+
+\begin{theo}\label{Teo Joyal-Tierney}
+    Sea $f:A\to B$ un morfismo de marcos, entonces $f$ es un morfismo abierto
+    si y solo si $f$ preserva ínfimos arbitrarios y $f(x\succ y)=f(x)\succ f(y)$
+    para todo $x,y\in A$
+\end{theo}
+\begin{proof}
+    Supongamos que $f$ es un morfismo abierto, entonces existe $f_l:B\to A$ tal que $f_l\dashv f$ y satisface Frobenius.
+
+    Como $f$ tiene adjunto adjunto izquierdo, entonces preserva ínfimos arbitrarios. Para probar que abre implicaciones
+    consideremos $x,y\in A$ y notemos que 
+    $$(x\succ y)\wedge x\leq y \implies f((x\succ y)\wedge x)\leq f(y) \implies f(x\succ y)\wedge f(x)\leq f(y)$$
+    y por un lado, por ser la implicación adjunto derecho de sacar ínfimo, tenemos $f(x\succ y)\leq f(x)\succ f(y)$. Por otro lado
+    podemos aplicar el adjunto izquierdo
+    $$f(x\succ y)\wedge f(x)\leq f(y) \implies f_l(f(x\succ y)\wedge f(x))\leq f_l(f(y))\leq y$$
+    recordando que aplicar el adjunto derecho seguido del adjunto izquierdo desinfla. Y como $f_l$ satisface Frobenius tenemos
+    $$f_l(f(x\succ y))\wedge x\leq y \implies f_l(f(x\succ y))\leq x\succ y$$
+    lo que por fórmula de adjunción nos da que es equivalente a $f(x\succ y)\leq f(x\succ y)$; probando que $f$ abre implicaciones.
+
+    Ahora supongamos que $f$ preserva ínfimos arbitrarios y preserva implicaciones. Como preserva ínfimos entonces tiene adjunto izquierdo
+    $f_l$. Para ver que satisface Frobenius necesitamos probar que $f_*(b\succ f(a))=f_l(b)\succ a$ para cada $a\in A$ y $b\in B$.
+    Sabemos que $b\leq f(f_l(b))$, luego como dejar fija la segunda entrada en una implicación es un morfismo antítono, tenemos
+    $f(f_l(b))\succ f(a)\leq b\succ f(a)$, y considerando que $f$ abre implicaciones y la fórmula de adjunción para $f\dashv f_*$ entonces
+    $$f(f_l(b)\succ a)\leq b\succ f(a) \implies f_l(b)\succ a\leq f_*(b\succ f(a))$$
+    Por otro lado veamos que 
+    $$b\succ f(a)\leq b\succ f(a) \implies (b\succ f(a))\wedge b\leq f(a) \implies b\leq (b\succ f(a))\succ f(a)$$
+    entonces, considerando que $f$ abre supremos, propiedades de adjunción y en que condiciones la implicación es antítona, tenemos
+    $$b\leq (b\succ f(a))\succ f(a)\leq  ff_*(b\succ f(a))\succ f(a)=f(f_*(b\succ f(a))\succ a)$$
+    por último, aplicando la fórmula de adjunción y propiedades de la implicación
+    $$f_l(b)\leq f_*(b\succ f(a))\succ a \implies f_l(a)\wedge f_*(b\succ f(a))\leq a \implies f_*(b\succ f(a))\leq f_l(b)\succ a$$
+    lo que nos da la igualdad que deseábamos.
+
+    Para la identidad de Frobenius, recordemos que es suficiente probar la desigualdad $f_l(b)\wedge a\leq f_l(b\wedge f(a))$ (Observación \ref{obs desigualdad Frobenius} ),
+    o equivalentemente, $a\leq f_l(b)\succ f_l(b\wedge f(a))$, por lo que probaremos lo segundo:
+    \begin{eqnarray*}
+        f_l(b)\succ f_l(b\wedge f(a)) &=& f_*(b\succ ff_l(b\wedge f(a))) \\
+                                    &\geq& f_*(b\succ(b\wedge f(a)))=f_*((b\succ b)\wedge(b\wedge f(a)))\\
+                                    &=& f_*(b\succ f(a))=f_l(b)\succ a\geq a
+    \end{eqnarray*}
+\end{proof}
+
+\begin{lema}
+    La composición de morfismos de marcos abiertos es un morfismo abierto.
+\end{lema}
+
+\begin{proof}
+    Sean $A\xrightarrow{f}B\xrightarrow{g}C\in\Frm$ dos morfismos abiertos. Del teorema anterior (\ref{Teo Joyal-Tierney}) ambos morfismos preservan implicaciones e ínfimos arbitrarios.
+    Es claro que entonces la composición $g\circ f$ también preserva implicaciones e ínfimos arbitrarios, por lo tanto es un morfismo abierto.
+\end{proof}
+
+\begin{lema}
+    Sea una familia $\{f_i:A\to A_i\}_{i\in I}\subseteq\Frm$ de morfismos abiertos. Entonces el morfismo $f:A\to\prod_{i\in I} A_i$, inducido por la propiedad universal
+    del producto, es un morfismo abierto.
+\end{lema}
+
+\begin{proof}
+    Definamos $f_l:\prod_{i\in I} A_i\to A$ como $f_l((a_i)_{i\in I})=\bigvee_{i\in I}f_{il}(a_i)$ para cada $(a_i)_{i\in I}\in\prod_{i\in I} A_i$, donde $f_{il}\dashv f_i$ y satisface Frobenius para cada $i\in I$ (ya que cada $f_i$ es abierto).
+    Veamos que es el adjunto izquierdo, sean $(a_i)_{i\in I}\in\prod_{i\in I} A_i$ y $a\in A$, entonces
+    \begin{eqnarray*}
+        f_l((a_i)_{i\in I})\leq a &\iff& \bigvee_{i\in I}f_{il}(a_i)\leq a \\
+                                    &\iff& f_{il}(a_i)\leq a \ \ \forall i\in I \\
+                                    &\iff& a_i\leq f_i(a) \ \ \forall i\in I \\
+                                    &\iff& (a_i)_{i\in I}\leq (f_i(a))_{i\in I}=f(a) 
+    \end{eqnarray*}
+    lo que prueba que $f_l\dashv f$. Y para la identidad de Frobenius, notemos que
+    \begin{eqnarray*}
+        f_l((a_i)_{i\in I}\wedge f(a)) &=& f_l((a_i)_{i\in I}\wedge(f_i(a))_{i\in I})=f_l((a_i\wedge f_i(a))_{i\in I}) \\ 
+                                        &=& \bigvee_{i\in I}f_{il}(a_i\wedge f_i(a))=\bigvee_{i\in I}(f_{il}(a_i)\wedge a) \\ 
+                                        &=& \bigvee_{i\in I}f_{il}(a_i)\wedge a = f_l((a_i)_{i\in I})\wedge a
+    \end{eqnarray*}
+\end{proof}
 
 \subsection{Morfismos étales}
 
@@ -98,19 +217,19 @@ algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsec
 	\arrow["{a\wedge-}"', from=1-1, to=2-1]
 	\arrow["{b\wedge-}", from=1-2, to=2-2]
 	\arrow["g"', from=2-1, to=2-2]
-\end{tikzcd} conmuta, entonces $g(x)=b\wedge f(x)$ para todo $x\leq a$ y $g_*(y)=f_*(b\prec y)\wedge a$.
+\end{tikzcd} conmuta, entonces $g(x)=b\wedge f(x)$ para todo $x\leq a$ y $g_*(y)=f_*(b\succ y)\wedge a$.
 \end{lema}
 \begin{proof}
     Sea $x\leq a$, entonces:
     $$g(x)=g(a\wedge x)=b\wedge f(x)$$
     ya que el diagrama conmuta. Por otro lado sea $y\leq b$, entonces:
-    $$f_*(b\prec y)=f_*\circ (b\wedge-)_*(y)=(a\wedge-)_*\circ g_*(y)=a\prec g_*(y)$$
+    $$f_*(b\succ y)=f_*\circ (b\wedge-)_*(y)=(a\wedge-)_*\circ g_*(y)=a\succ g_*(y)$$
     ya que si el cuadrado conmuta, entonces conmuta el cuadrado de los respectivos adjuntos derechos.
     
-    De lo anterior, por un lado tenemos que $f_*(b\prec y)\wedge a\leq g_*(y)$. Por otro lado, notemos que $g_*(y)\leq a$,
+    De lo anterior, por un lado tenemos que $f_*(b\succ y)\wedge a\leq g_*(y)$. Por otro lado, notemos que $g_*(y)\leq a$,
     y por lo obtenido previamente, tenemos que $b\wedge f(g_*(y))=g(g_*(y))\leq y$ (Esta última desigualdad porque $g\dashv g_*$).
-    Luego eso es equivalente a que $f(g_*(y))\leq b\prec y$ (Por ser la implicación el adjunto derecho de sacar ínfimo), y por último
-    $g_*(y)\leq f_*(b\prec y)$ (ya que $f\dashv f_*)$. Y por lo tanto $g_*(y)=f_*(b\prec y)\wedge a$.
+    Luego eso es equivalente a que $f(g_*(y))\leq b\succ y$ (Por ser la implicación el adjunto derecho de sacar ínfimo), y por último
+    $g_*(y)\leq f_*(b\succ y)$ (ya que $f\dashv f_*)$. Y por lo tanto $g_*(y)=f_*(b\succ y)\wedge a$.
 \end{proof}
 
 \section{Algunas equivalencias importantes}

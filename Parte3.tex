@@ -70,6 +70,14 @@ El siguiente resultado proporciona algunas propiedades básicas de la implicaci�
 Cuando trabajamos en $\Top$, la noción de subespacio puede ser capturada mediante la noción de sublocal. A su vez, los sublocales pueden ser estudiados de manera 
 algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsección explicara brevemente la relación entre núcleos y sublocales.
 
+\begin{prop}\label{adjunto derecho de nucleo}
+    Sea $A$ un marco y $j\in NA$, entonces la inclusión de $A_j$ en $A$ es el adjunto derecho de $j*:A\to A_j$
+\end{prop}
+\begin{proof}
+    Consideremos $x\in A$ y $y\in A_j$, entonces
+    $$x\leq y \iff x\leq j*(x)\leq j*(y)=y$$.
+\end{proof}
+
 \subsection{Morfismos abiertos}
 
 \begin{definition}[Morfismo abierto]
@@ -211,13 +219,13 @@ algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsec
 \begin{lema}
     Sea $f:A\to B$ un morfismo de marcos, $a\in A$, $b\in B$ y $g:\downarrow a\to \downarrow b$ otro morfismo de marcos tal que 
     el cuadrado \begin{tikzcd}
-	A & B \\
-	{\downarrow a} & {\downarrow b}
-	\arrow["f", from=1-1, to=1-2]
-	\arrow["{a\wedge-}"', from=1-1, to=2-1]
-	\arrow["{b\wedge-}", from=1-2, to=2-2]
-	\arrow["g"', from=2-1, to=2-2]
-\end{tikzcd} conmuta, entonces $g(x)=b\wedge f(x)$ para todo $x\leq a$ y $g_*(y)=f_*(b\succ y)\wedge a$.
+        A & B \\
+        {\downarrow a} & {\downarrow b}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{a\wedge-}"', from=1-1, to=2-1]
+        \arrow["{b\wedge-}", from=1-2, to=2-2]
+        \arrow["g"', from=2-1, to=2-2]
+    \end{tikzcd} conmuta, entonces $g(x)=b\wedge f(x)$ para todo $x\leq a$ y $g_*(y)=f_*(b\succ y)\wedge a$ para todo $y\leq b$.
 \end{lema}
 \begin{proof}
     Sea $x\leq a$, entonces:
@@ -230,6 +238,27 @@ algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsec
     y por lo obtenido previamente, tenemos que $b\wedge f(g_*(y))=g(g_*(y))\leq y$ (Esta última desigualdad porque $g\dashv g_*$).
     Luego eso es equivalente a que $f(g_*(y))\leq b\succ y$ (Por ser la implicación el adjunto derecho de sacar ínfimo), y por último
     $g_*(y)\leq f_*(b\succ y)$ (ya que $f\dashv f_*)$. Y por lo tanto $g_*(y)=f_*(b\succ y)\wedge a$.
+\end{proof}
+
+\begin{lema}
+    Sea $f:A\to B$ un morfismo de marcos, $a\in A$, $b\in B$ y $g:A_{v_a}\to B_{v_b}$ otro morfismo de marcos tal que 
+    el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_a}} & {B_{v_b}}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{v_a}"', from=1-1, to=2-1]
+        \arrow["{v_b}", from=1-2, to=2-2]
+        \arrow["g"', from=2-1, to=2-2]
+    \end{tikzcd} conmuta, entonces $g(x)=b\succ f(x)$ para todo $x\in A_{v_a}$ y $g_*(y)=f_*(y)$ para todo $y\in B_{v_b}$.
+\end{lema}
+
+\begin{proof}
+    Sea $x\in A_{v_a}$, considerando que $x$ también es elemento de $A$ y el hecho de que conmuta el cuadrado de la hipótesis, entonces tenemos
+    $$b\succ f(x) = g(a\succ x)=g(x)$$
+
+    Para el adjunto derecho, consideremos la proposición \ref{adjunto derecho de nucleo}, y que el cuadrado de la hipótesis conmuta. Entonces también lo hace el cuadrado de los adjuntos
+    derechos y por lo tanto
+    $$g_*(y)= f_*(y)$$
 \end{proof}
 
 \section{Algunas equivalencias importantes}

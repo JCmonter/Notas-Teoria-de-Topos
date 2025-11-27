@@ -55,7 +55,7 @@ implicar es adjunto derecho de calcular ínfimo. Por lo tanto, la implicación s
 
 El siguiente resultado proporciona algunas propiedades básicas de la implicación.
 
-\begin{prop}
+\begin{prop}\label{prop basicas implicacion}
     Consideremos $A$ un marco y $a,b,c\in A$. Entonces 
     \begin{itemize}
         \item $1\succ a=a$.
@@ -63,6 +63,8 @@ El siguiente resultado proporciona algunas propiedades básicas de la implicaci�
         \item $(a\vee b)\succ c=(a\succ c)\wedge (b\succ c)$.
         \item $a\leq b$ si y solo si $1\leq (a\succ b)$.
         \item $a\leq (b\succ c)$ si y solo si $a\wedge b \leq c$.
+        \item $(a\wedge b)\succ c=a\succ (b\succ c)$
+        \item $a\wedge(a\succ b)=a\wedge b$
     \end{itemize}
 \end{prop}
 
@@ -71,12 +73,66 @@ Cuando trabajamos en $\Top$, la noción de subespacio puede ser capturada median
 algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsección explicara brevemente la relación entre núcleos y sublocales.
 
 \begin{prop}\label{adjunto derecho de nucleo}
-    Sea $A$ un marco y $j\in NA$, entonces la inclusión de $A_j$ en $A$ es el adjunto derecho de $j*:A\to A_j$
+    Sea $A$ un marco y $j\in NA$, entonces la inclusión de $A_j$ en $A$ es el adjunto derecho de $j^*:A\to A_j$
 \end{prop}
 \begin{proof}
     Consideremos $x\in A$ y $y\in A_j$, entonces
-    $$x\leq y \iff x\leq j*(x)\leq j*(y)=y$$.
+    $$x\leq y \iff x\leq j^*(x)\leq j^*(y)=y$$.
 \end{proof}
+
+\begin{lema}\label{lema del paso al cociente}
+    Sea un morfismo de marcos $A\xrightarrow{f}B$ y los núcleos $j\in NA$, $k\in NB$. Para cualquier morfismo de marcos $A_j\xrightarrow{g}B_k$ es equivalente lo siguiente:
+    \begin{itemize}
+        \item El cuadrado \begin{tikzcd}
+            A & B \\
+            {A_j} & {B_k}
+            \arrow["f", from=1-1, to=1-2]
+            \arrow["{j^*}"', from=1-1, to=2-1]
+            \arrow["{k^*}", from=1-2, to=2-2]
+            \arrow["g"', from=2-1, to=2-2]
+        \end{tikzcd} conmuta.
+        \item $g(x)=k(f(x))$ para $x\in A_j$ y $g_*(y)=f_*(y)$ para $y\in B_k$.
+
+    \end{itemize}
+\end{lema}
+
+\begin{proof}
+    Supongamos que el cuadrado conmuta, entonces para $x\in A_j\subseteq A$ tenemos
+    $$ k(f(x))=g(j^*(x))=g(x)$$
+    Por otro lado, al conmutar el cuadrado, conmuta el cuadrado de los adjuntos derechos \begin{tikzcd}
+        A & B \\
+        {A_j} & {B_k}
+        \arrow["{f_*}"', from=1-2, to=1-1]
+        \arrow[hook', from=2-1, to=1-1]
+        \arrow[hook', from=2-2, to=1-2]
+        \arrow["{g_*}", from=2-2, to=2-1]
+    \end{tikzcd}, lo que significa que $g_*(y)=f_*(y)$ para $y\in B_k$.
+
+    Para el recíproco solo hay que notar de saber que $g_*(y)=f_*(y)$ para $y\in B_k$, sabemos que conmuta el cuadrado
+    \begin{tikzcd} A & B \\
+        {A_j} & {B_k}
+        \arrow["{f_*}"', from=1-2, to=1-1]
+        \arrow[hook', from=2-1, to=1-1]
+        \arrow[hook', from=2-2, to=1-2]
+        \arrow["{g_*}", from=2-2, to=2-1]
+    \end{tikzcd}, y pues al ser todos adjuntos derechos, entonces conmuta el cuadrado de adjuntos izquierdos \begin{tikzcd}
+            A & B \\
+            {A_j} & {B_k}
+            \arrow["f", from=1-1, to=1-2]
+            \arrow["{j^*}"', from=1-1, to=2-1]
+            \arrow["{k^*}", from=1-2, to=2-2]
+            \arrow["g"', from=2-1, to=2-2]
+        \end{tikzcd}.
+\end{proof}
+
+\begin{obs}\label{iso seccion inferior cociente abierto}
+    Sea un marco $A$ y $a\in A$, entonces el marco cociente del núcleo $v_a$ le llamamos núcleo abierto, y notemos que $A_{v_a}\cong \downarrow a$.
+    Este isomorfismo está dado por los morfismos $a\wedge-:A_{v_a}\to \downarrow a$ y $a\succ -:\downarrow a\to A_{v_a}$. Ya que de las propiedades de
+    la implicación (proposición \ref{prop basicas implicacion}) no es muy complicado ver que para $x\in A_{v_a}$ tenemos
+    $$a\succ(a\wedge x)=(a\succ a)\wedge(a\succ x)=1\wedge x =x$$
+    Y para $y\in \downarrow a$ tenemos
+    $$ a\wedge(a\succ y)= a\wedge y= y.$$  
+\end{obs}
 
 \subsection{Morfismos abiertos}
 
@@ -216,7 +272,7 @@ algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsec
 
 \subsection{Morfismos étales}
 
-\begin{lema}
+\begin{lema}\label{lema del paso a la seccion inferior}
     Sea $f:A\to B$ un morfismo de marcos, $a\in A$, $b\in B$ y $g:\downarrow a\to \downarrow b$ otro morfismo de marcos tal que 
     el cuadrado \begin{tikzcd}
         A & B \\
@@ -240,7 +296,7 @@ algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsec
     $g_*(y)\leq f_*(b\succ y)$ (ya que $f\dashv f_*)$. Y por lo tanto $g_*(y)=f_*(b\succ y)\wedge a$.
 \end{proof}
 
-\begin{lema}
+\begin{lema}\label{lema del paso al cociente abierto}
     Sea $f:A\to B$ un morfismo de marcos, $a\in A$, $b\in B$ y $g:A_{v_a}\to B_{v_b}$ otro morfismo de marcos tal que 
     el cuadrado \begin{tikzcd}
         A & B \\
@@ -253,13 +309,138 @@ algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsec
 \end{lema}
 
 \begin{proof}
-    Sea $x\in A_{v_a}$, considerando que $x$ también es elemento de $A$ y el hecho de que conmuta el cuadrado de la hipótesis, entonces tenemos
-    $$b\succ f(x) = g(a\succ x)=g(x)$$
-
-    Para el adjunto derecho, consideremos la proposición \ref{adjunto derecho de nucleo}, y que el cuadrado de la hipótesis conmuta. Entonces también lo hace el cuadrado de los adjuntos
-    derechos y por lo tanto
-    $$g_*(y)= f_*(y)$$
+    Es un caso particular del lema \ref{lema del paso al cociente}, con los núcleos abiertos $v_a$ y $v_b$
 \end{proof}
+
+Sabemos de la observación \ref{iso seccion inferior cociente abierto} que hay un isomorfismo entre los cocientes abiertos y las secciones inferiores, veamos
+que en cierto sentido son equivalentes los dos lemas anteriores.
+
+\begin{prop}
+    Sean $A\xrightarrow{f}B$ un morfismo de marcos, $a\in A$ y $b\in B$, entonces lo siguiente es equivalente:
+    \begin{itemize}
+        \item Existe un morfismo de marcos $g:A_{v_a}\to B_{v_b}$ que hace conmutar el cuadrado 
+        \\ \begin{tikzcd}
+                A & B \\
+                {A_{v_a}} & {B_{v_b}}
+                \arrow["f", from=1-1, to=1-2]
+                \arrow["{v_a}"', from=1-1, to=2-1]
+                \arrow["{v_b}", from=1-2, to=2-2]
+                \arrow["g"', from=2-1, to=2-2]
+            \end{tikzcd}
+        \item Existe un morfismo de marcos $\widehat{g}:\downarrow a\to \downarrow b$ que hace conmutar el cuadrado 
+        \\ \begin{tikzcd}
+                A & B \\
+                {\downarrow a} & {\downarrow b}
+                \arrow["f", from=1-1, to=1-2]
+                \arrow["{a\wedge-}"', from=1-1, to=2-1]
+                \arrow["{b\wedge-}", from=1-2, to=2-2]
+                \arrow["\widehat{g}"', from=2-1, to=2-2]
+            \end{tikzcd}
+    \end{itemize}
+\end{prop}
+
+\begin{proof}
+    Supongamos que conmuta el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_a}} & {B_{v_b}}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{v_a}"', from=1-1, to=2-1]
+        \arrow["{v_b}", from=1-2, to=2-2]
+        \arrow["g"', from=2-1, to=2-2]
+    \end{tikzcd}, entonces, del lema \ref{lema del paso al cociente abierto}, tenemos que 
+    $g(x)=b\succ f(x)$ para todo $x\in A_{v_a}$ y $g_*(y)=f_*(y)$ para todo $y\in B_{v_b}$. Usaremos el isomorfismo
+    entre las secciones inferiores y los cocientes abiertos, entonces definimos $\widehat{g}:\downarrow a\to\downarrow b$
+    como $\widehat{g}(w):=b\wedge g(a\succ w)$ para todo $w\in\downarrow a$. Tomemos $z\in A$, entonces 
+    $$ \widehat{g}(a\wedge z)=b\wedge g(a\succ (a\wedge z))=b\wedge g(a\succ z)=b\wedge (b\succ f(z))=b\wedge f(z) $$
+    lo que muestra que conmuta el cuadrado \begin{tikzcd}
+        A & B \\
+        {\downarrow a} & {\downarrow b}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{a\wedge-}"', from=1-1, to=2-1]
+        \arrow["{b\wedge-}", from=1-2, to=2-2]
+        \arrow["\widehat{g}"', from=2-1, to=2-2]
+    \end{tikzcd}
+
+    Ahora supongamos que conmuta el cuadrado \begin{tikzcd}
+        A & B \\
+        {\downarrow a} & {\downarrow b}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{a\wedge-}"', from=1-1, to=2-1]
+        \arrow["{b\wedge-}", from=1-2, to=2-2]
+        \arrow["\widehat{g}"', from=2-1, to=2-2]
+    \end{tikzcd}, entonces del lema \ref{lema del paso a la seccion inferior}, tenemos que
+    $\widehat{g}(x)=b\wedge f(x)$ para todo $x\leq a$ y $\widehat{g}_*(y)=f_*(b\succ y)\wedge a$ para todo $y\leq b$. Por el mismo
+    isomorfismo mencionado previamente, definimos $g(w):=b\succ\widehat{g}(a\wedge w)$ para todo
+    $w\in A_{v_a}$. Tomemos $z\in A$, entonces
+    $$ g(a\succ z)=b\succ\widehat{g}(a\wedge (a\succ z))=b\succ\widehat{g}(a\wedge z)=b\succ (b\wedge f(z))=b\succ f(z)$$
+    lo que muestra que conmuta el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_a}} & {B_{v_b}}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{v_a}"', from=1-1, to=2-1]
+        \arrow["{v_b}", from=1-2, to=2-2]
+        \arrow["g"', from=2-1, to=2-2]
+    \end{tikzcd}
+\end{proof}
+
+\begin{definition}
+    Sea $f:A\to B$ un morfismo de marcos. Decimos que $f$ es un morfismo étale si existen familias $\{a_i\}_{i\in I}\subseteq A$
+    y $\{b_i\}_{i\in I}\subseteq B$ tales que:
+    \begin{itemize}
+        \item[1.]  $\bigvee_{i\in I}b_i=1$.
+        \item[2.]  Para cada $i\in I$ $f_i:A_{v_{a_i}}\to B_{v_{b_i}}$ definido como $f_i(x):=b_i\succ f(x)$ es un isomorfismo.
+    \end{itemize}
+\end{definition}
+
+\begin{lema}\label{etale implica abierto}
+    Todo morfismo de marcos étale es un morfismo abierto.
+\end{lema}
+
+\begin{proof}
+    Sea $f:A\to B$ un morfismo de marcos étale, entonces existen familias $\{a_i\}_{i\in I}\subseteq A$
+    y $\{b_i\}_{i\in I}\subseteq B$ tales que $\bigvee_{i\in I}b_i=1$ y el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_{a_i}}} & {B_{v_{b_i}}}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{v_{a_i}}"', from=1-1, to=2-1]
+        \arrow["{v_{b_i}}", from=1-2, to=2-2]
+        \arrow["g"', from=2-1, to=2-2]
+    \end{tikzcd} conmuta y $f_i$ es isomorfismo para toda $i\in I$.
+
+    Definamos $f_l:B\to A$ como $f_l(y):=\bigvee_{i\in I}(a_i\wedge f_{i*}(b_i\succ y))$ para cada $y\in B$.
+    Veamos que es el adjunto izquierdo. Sean $x\in A$ y $y\in B$, entonces
+    \begin{eqnarray*}
+        f_l(y)\leq x &\iff&  \bigvee_{i\in I}(a_i\wedge f_{i*}(b_i\succ y)) \leq x \\
+                    &\iff& a_i\wedge f_{i*}(b_i\succ y) \leq x \text{ para todo } i\in I \\
+                    &\iff& f_{i*}(b_i\succ y)\leq a_i\succ x \text{ para todo } i\in I \\ 
+                    &\iff& b_i\succ y\leq f_i(a_i\succ x)=b_i \succ f(x) \text{ para todo } i\in I \\ 
+                    &\iff& b_i\wedge y =b_i\wedge(b_i\succ y)\leq f(x) \text{ para todo } i\in I \\
+                    &\iff& \bigvee_{i\in I}(b_i\wedge y)=\bigvee_{i\in I}b_i\wedge y=y\leq f(x)
+    \end{eqnarray*}
+    Lo que prueba que $f_l\dashv f$ (Recuerdése que se usa el hecho de que cada $f_i$ son isomorfismos, y por lo tanto
+    su inverso es tanto su adjunto derecho como izquierdo, lo que significa que $f_{i*}=f_i^{-1}$).
+
+    Para la identidad de Frobenius primero observemos que para cada $i\in I$ se tiene que
+    \begin{eqnarray*}
+        a_i\wedge f{i*}(b_i\succ y)\wedge x &=& a_i\wedge f_{i*}(b_i\succ y)\wedge (a_i\succ x)=a_i\wedge f_{i*}(b_i\succ y)\wedge f_{i*}f_i(a_i\succ x) \\ 
+                                            &=& a_i\wedge f_{i*}((b_i\succ y)\wedge f_i(a_i\succ x))=a_i\wedge f_{i*}((b_i\succ y)\wedge (b_i\succ f(x))) \\ 
+                                            &=& a_i\wedge f_{i*}(b_i\succ (y\wedge f(x)))
+    \end{eqnarray*}
+    Y ahora veamos que 
+    \begin{eqnarray*}
+        f_l(y)\wedge x &=& \bigvee_{i\in I}(a_i\wedge f_{i*}(b_i\succ y))\wedge x=\bigvee_{i\in I}(a_i\wedge f_{i*}(b_i\succ y)\wedge x) \\ 
+                        &=&  \bigvee_{i\in I}(a_i\wedge f_{i*}(b_i\succ (y\wedge f(x))))=f_l(y\wedge f(x)).
+    \end{eqnarray*}
+\end{proof}
+
+\begin{coro}
+    Sea $f:A\to B$ un morfismo de marcos. $f$ es étale si y solo si:
+    \begin{itemize}
+        \item [1.] $f$ es abierto (e.i. existe $f_l\dashv f$ que satisface Frobenius)
+        \item [2.] Existe una familia $\{b_i\}\subseteq B$ tal que $\bigvee_{i\in I}b_i=1$ y $f_{il}:B_{v_{b_i}}\to A_{v_{f_l(b_i)}}$
+        definido como $f_{il}(z):=f_l(b_i)\succ f_l(b_i\wedge z)$ para todo $z\in B_{v_{b_i}}$, es un isomorfismo.  
+    \end{itemize}
+\end{coro}
 
 \section{Algunas equivalencias importantes}
 

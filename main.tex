@@ -6,14 +6,45 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{graphicx}
-\usepackage{tikz-cd}\usetikzlibrary{decorations.pathmorphing}
+\usepackage{tikz-cd}
+
+\usetikzlibrary{babel, arrows.meta, decorations.pathmorphing, matrix}
 \usepackage{latexsym,amscd} 
 \usepackage[colorlinks=true, allcolors=black]{hyperref}
 \usepackage[all,cmtip]{xy}  
-\usetikzlibrary{babel}
 \setlength{\marginparwidth}{2cm}
 \usepackage{todonotes}
 \addbibresource{Referencias.bib}
+
+\NeedsTeXFormat{LaTeX2e}
+\usetikzlibrary{calc}
+
+\tikzset{
+  curve/.style={
+    settings={#1},
+    to path={
+      (\tikztostart)
+        .. controls
+          ($(\tikztostart)!\pv{pos}!(\tikztotarget) + (0,\pv{height})$)
+          and
+          ($(\tikztostart)!1-\pv{pos}!(\tikztotarget) + (0,\pv{height})$)
+        .. (\tikztotarget)
+      \tikztonodes
+    }
+  },
+  settings/.code={
+    \tikzset{quiver/.cd,#1}
+    \def\pv##1{\pgfkeysvalueof{/tikz/quiver/##1}}
+  },
+  quiver/.cd,
+    pos/.initial=0.35,
+    height/.initial=0pt
+}
+
+\tikzset{tail reversed/.code={\pgfsetarrowsstart{tikzcd to}}}
+\tikzset{2tail/.code={\pgfsetarrowsstart{Implies[reversed]}}}
+\tikzset{2tail reversed/.code={\pgfsetarrowsstart{Implies}}}
+\tikzset{no body/.style={/tikz/dash pattern=on 0 off 1mm}}
 
 
 

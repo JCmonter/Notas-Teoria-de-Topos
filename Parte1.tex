@@ -86,9 +86,14 @@ La manera de relacionar objetos de una categoría es mediante sus morfismos. Com
 \begin{enumerate}
     \item Para cada $A\in\mathcal{A}$, se tiene que $\eta_\mathcal{A}:F(A)\rightarrow G(A)$.
     \item Para toda $f\in\A(A,B)$, el siguiente diagrama 
-    \begin{center}
-	\par\includegraphics[height=0.22\textwidth]{diagram1.5.1.png}
-    \end{center}
+ \[\begin{tikzcd}
+	{F(A)} & {G(A)} \\
+	{F(B)} & {G(B)}
+	\arrow["{\eta_A}", from=1-1, to=1-2]
+	\arrow["{F(f)}"', from=1-1, to=2-1]
+	\arrow["{G(f)}", from=1-2, to=2-2]
+	\arrow["{\eta_B}"', from=2-1, to=2-2]
+\end{tikzcd}\]
     conmuta.
 \end{enumerate}
 \end{definition}
@@ -115,19 +120,28 @@ es un isomorfismo.
     \begin{enumerate}
         \item Un objeto $C\in\C$,
         \item Para cada objeto $A\in\A$, se tiene una flecha $(P_A:C\to FA)\in\C$ tal que, para cada flecha $\left(A\xrightarrow{\alpha}A'\right)\in\A$, el siguiente diagrama 
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=0.35\linewidth]{img/diagrama1.png}
-        \end{figure}
+        \[\begin{tikzcd}
+	A && FA && {FA'} \\
+	{A'} &&& C
+	\arrow[shift right=5, squiggly, from=1-1, to=1-3]
+	\arrow["\alpha"', from=1-1, to=2-1]
+	\arrow["{F\alpha}", from=1-3, to=1-5]
+	\arrow["{P_A}", from=2-4, to=1-3]
+	\arrow["{P_{A'}}"', from=2-4, to=1-5]
+\end{tikzcd}\]
         es sólido en $\C$
     \end{enumerate}
 \end{definition}
+
 \begin{definition}
     Sea $F:\A\to\C$ un funtor. Un \emph{límite} sobre $F$ es un cono $(L,\langle P_A\rangle_{A\in\A})$ sobre $F$ con la siguiente propiedad: para cualquier otro cono $(M,\langle q_A\rangle_{A\in\A})$ sobre $F$, existe un único morfismo $m:M\to L$ tal que, para todo $A\in \A$, el diagrama
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.3\linewidth]{img/diagrama2.png}
-\end{figure}
+\[\begin{tikzcd}
+	M && L \\
+	& FA
+	\arrow["{!m}", dashed, from=1-1, to=1-3]
+	\arrow["{q_A}"', from=1-1, to=2-2]
+	\arrow["{P_A}", from=1-3, to=2-2]
+\end{tikzcd}\]
     conmuta. Esto es, $q_A=P_A\circ m$, para todo $A\in \A$.
 \end{definition}
 A los morfismos $(P_A:L\to FA,\quad A\in \A)$ se les llama \emph{proyecciones}, y al límite de $F$ se denota como $\varprojlim_{A\in\A} FA$.
@@ -150,32 +164,61 @@ A continuación, se muestran algunos de los ejemplos de límites.
     \begin{enumerate}
         \item Sea $\A$ una categoría vacía, $\C$ una categoría y $F:\A\to\C$ un funtor. Entonces, el límite de $F$ es un objeto $C\in\Ob(\C)$ tal que, para todo $C'\in\Ob(\C)$, existe un único morfismo $C'\to C$. Es decir, $C$ es el objeto final de $\C$.
         \item Sea $\T$ una categoría con  objetos $\bullet$, $*$, y  $F:\T\to \C$ un funtor. Entonces, un límite para $F$ es 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.3\linewidth]{img/diagrama5.png}
-        \end{figure}
+      \[\begin{tikzcd}
+	& C \\
+	{F(\bullet )} && {F(*)} \\
+	& {C'}
+	\arrow[from=1-2, to=2-1]
+	\arrow[from=2-3, to=1-2]
+	\arrow["{!}"', dashed, from=3-2, to=1-2]
+	\arrow[from=3-2, to=2-1]
+	\arrow[from=3-2, to=2-3]
+\end{tikzcd}\]
         Por lo tanto, $C$ define un producto para $F(\bullet)$ y $F(*)$, el cual denotamos como $C=F(\bullet)\times F(*)$.
         \item Sea $\L$ la categoría que consiste de los objetos $\bullet$ y $*$, dos flechas paralelas de $\bullet$ a $*$, y las respectivas identidades. Sea $F:\L\to\C$ un funtor. De manera diagramática tenemos lo siguiente
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.5\linewidth]{img/diagrama6.png}
-        \end{figure}
+        \[
+        \begin{tikzcd}
+\mathcal{L}:= & \bullet \arrow[r, shift right] \arrow[loop, distance=2em, in=55, out=125] \arrow[r, shift left] & * \arrow[r, "F"] \arrow[loop, distance=2em, in=55, out=125] & \mathcal{C}
+\end{tikzcd}
+\]
         Así, el límite sobre $\F$ de la forma $\L$ es 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.6\linewidth]{img/diagrama7.png}
-        \end{figure}
+        \[\begin{tikzcd}
+	& C \\
+	{F(\bullet)} && {F(*)=C} & {F(\bullet)} & {F(*)} \\
+	&& {C'}
+	\arrow["f"', from=1-2, to=2-1]
+	\arrow["g", from=1-2, to=2-3]
+	\arrow["{h_2}"', shift right=2, from=2-1, to=2-3]
+	\arrow["{h_1}", shift left=2, from=2-1, to=2-3]
+	\arrow["f", from=2-3, to=2-4]
+	\arrow["{h_2}"', shift right=2, from=2-4, to=2-5]
+	\arrow["{h_1}", shift left=2, from=2-4, to=2-5]
+	\arrow["{!}", dashed, from=3-3, to=2-3]
+	\arrow["\alpha"', from=3-3, to=2-4]
+\end{tikzcd}\]
+
         Del diagrama anterior se tiene que, $g=h_1\circ f=h_2\circ f$. Por lo tanto, $C$ es el igualador de $F(\L)$.
         \item Sea $P$ la categoría que consiste de tres objetos $a$, $b$ y $c$, dos flechas $a\to b$, $b\to c$, y las respectivas identidades. Sea $F:P\to\C$ un funtor. En un diagrama se tiene que
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.6\linewidth]{img/diagrama8.png}
-        \end{figure}
+       \[
+        \begin{tikzcd}
+                                                                     & c \arrow[loop, distance=2em, in=125, out=55] \arrow[dd] &             \\
+                                                                     & {} \arrow[r, "F"]                                       & \mathcal{C} \\
+a \arrow[r, shift right] \arrow[loop, distance=2em, in=145, out=215] & b \arrow[loop, distance=2em, in=235, out=305]           &            
+\end{tikzcd}
+       \]
        Por lo cual, un límite sobre $F$ de la forma $P$ es el pullback
-       \begin{figure}[H]
-           \centering
-           \includegraphics[width=0.38\linewidth]{img/diagrama9.png}
-       \end{figure}
+       \[\begin{tikzcd}
+	{d'} \\
+	& {F(d)} & {F(c)} \\
+	& {F(a)} & {F(b)}
+	\arrow["{!}", dashed, from=1-1, to=2-2]
+	\arrow[from=1-1, to=2-3]
+	\arrow[from=1-1, to=3-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-2, to=3-2]
+	\arrow[from=2-3, to=3-3]
+	\arrow[from=3-2, to=3-3]
+\end{tikzcd}\]
     \end{enumerate}
 \end{ejp}
 \subsection{Colímites}
@@ -184,21 +227,31 @@ A continuación, se muestran algunos de los ejemplos de límites.
     \begin{enumerate}
         \item Un objeto $C\in \C$.
         \item Para cada $A\in\A$, un morfismo $(s_A:FA\to C)\in\C$ tal que, para cada flecha $\left(A\xrightarrow{\alpha}A'\right)\in\A$, el siguiente diagrama 
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=0.4\linewidth]{img/diagrama3.png}
-        \end{figure}
+        \[\begin{tikzcd}
+	A && FA && {FA'} \\
+	{A'} &&& C
+	\arrow[shift right=5, squiggly, from=1-1, to=1-3]
+	\arrow["\alpha"', from=1-1, to=2-1]
+	\arrow["{F_\alpha}", from=1-3, to=1-5]
+	\arrow["{s_A}"', from=1-3, to=2-4]
+	\arrow["{s_{A'}}", from=1-5, to=2-4]
+\end{tikzcd}\]
         conmuta en $\C$. Es decir, $s_A=s_{A'}\circ F_\alpha$.
     \end{enumerate}
 \end{definition}
+
 \begin{definition}
-    Un \emph{colímite} sobre $F$ es un  cocono $(L,\langle s_A\rangle_{A\in\A})$ con la siguiente propiedad: para cualquier otro cocono $(M,\langle t_A\rangle_{A\in\A})$ el siguiente diagrama es conmutativo
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.3\linewidth]{img/diagrama4.png}
-    \end{figure}
-    Esto es, para todo $A\in \A$, $t_A=ms_A$.
+    Un \emph{colímite} sobre $F$ es un  cocono $(L,\langle s_A\rangle_{A\in\A})$ con la siguiente propiedad: para cualquier otro cocono $(M,\langle t_A\rangle_{A\in\A})$ el siguiente diagrama
+    \[\begin{tikzcd}
+	FA && L \\
+	& M
+	\arrow["{s_A}", from=1-1, to=1-3]
+	\arrow["{t_A}"', from=1-1, to=2-2]
+	\arrow["{!m}"', dashed, from=2-2, to=1-3]
+\end{tikzcd}\]
+    es conmutativo. Esto es, para todo $A\in \A$, $t_A=ms_A$.
 \end{definition}
+
 Por el principio de dualidad, los ejemplos de colímites se obtienen de manera dual a los ejemplos de límites dados en el Ejemplo \ref{ejp:lim}. 
 \begin{lema}\label{lema:igualador}
     Sea $\left( A\xrightarrow{h}B \overset{f}{\underset{g}{\rightrightarrows}} C\right)\in\Con$. Este es un igualador si, y solo si, para cda $b\in B$ tal que $f(b)=g(b)$ implica que existe un único $a\in A$ tal que $h(a)=b$.
@@ -241,12 +294,15 @@ Por el principio de dualidad, los ejemplos de colímites se obtienen de manera d
         \item Para cualesquiera $C_1,C_2\in \Ob(\C)$ y morfismos $C_1 \overset{f_1}{\underset{f_2}{\rightrightarrows}} C_2$ existe $C_3\in\Ob(\C)$ y un morfismo $C_1 \overset{f_1}{\underset{f_2}{\rightrightarrows}} C_2\xrightarrow{h} C_3$ tal que $hf_1=hf_2$.
     \end{enumerate}
 \end{definition}
+
 \begin{definition}
     Un \emph{colímite} sobre $F:\C\to\D$ es filtrante si $\C$ es filtrante.
 \end{definition}
+
 \begin{lema}
     Sea $F:\B\to\C$ un funtor con $\B$ finita y $\C$ filtrante. Entonces, existe un cono sobre $F$ en $\C$.
 \end{lema}
+
 La demostración se sigue del siguiente resultado. 
 \begin{prop} Sea $\C$ una categoría pequeña.
     \begin{enumerate}
@@ -257,6 +313,7 @@ La demostración se sigue del siguiente resultado.
 \begin{proof}
     
 \end{proof}
+
 \section{Adjunciones}
 \begin{definition}[Adjunción]
 Sean $\C$ y $\D$ categorías. Una \emph{adjunción} entre $\C$ y $\D$ es una terna $(F,G,\varphi)$ donde $\D\overset{F}{\underset{G}{\rightleftarrows}}\C$ son funtores y $\varphi$ es una función que asigna a cada par de objetos $C\in\C$ y $D\in\D$ una biyección
@@ -265,10 +322,12 @@ Sean $\C$ y $\D$ categorías. Una \emph{adjunción} entre $\C$ y $\D$ es una ter
 \end{equation*}
 En este caso, decimos  que $F$ es adjunto izquierdo y $G$ es adjunto derecho, lo cual es denotado por $F\dashv G$. 
 \end{definition}
+
 En lo anterior, $\varphi_{\D,\C}$ de hecho es un ismorfismo natural. El siguiente resultado nos dice que las adjunciones se comportan bien bajo composición.
 \begin{lema}
     Sean $\D\overset{F}{\underset{G}{\rightleftarrows}}\C\overset{F'}{\underset{G'}{\rightleftarrows}}\B$ funtores. Si $F\dashv G$ y $F'\dashv G'$, entonces $F'\circ F\dashv G\circ G'$.
 \end{lema}
+
 \begin{proof}
     Como $F\dashv G$ se tiene que, para cada par de objetos $C\in \C$ y $D\in \D$, hay una biyección 
     \begin{eqnarray}\label{eq:1.7.1}
@@ -284,7 +343,9 @@ En lo anterior, $\varphi_{\D,\C}$ de hecho es un ismorfismo natural. El siguient
     \end{eqnarray*}
     Por lo tanto, $F'\circ F\dashv G\circ G'$ tal como se quería.
 \end{proof}
+
 A continuación se enuncian un par de resultados en los que se muestra la relación entre objetos iniciales/finales y adjuntos. Esto es, si una categoría tiene objeto inicial, este da lugar a un adjunto izquierdo. Dualmente, si la categoría tiene objeto  final, este determina un adjunto derecho.
+
 \begin{prop}
     Si $\A$ y $\B$ son categorías con objeto inicial entonces el funtor 
     \begin{eqnarray*}
@@ -294,43 +355,67 @@ A continuación se enuncian un par de resultados en los que se muestra la relaci
   \end{eqnarray*}
   es adjunto izquierdo de la proyección $\pi_\A:\A\times\B\to\A$.
 \end{prop}
+
 \begin{prop}
     Sean $\A$, $\B$ y $\C$ categorías con coproductos finitos y funtores 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.18\linewidth]{img/diagram1.4.1.png}
-    \end{figure}
+    \[\begin{tikzcd}
+	{\mathcal{C}} & {\mathcal{A}} \\
+	{\mathcal{B}}
+	\arrow["F", from=1-1, to=1-2]
+	\arrow["G"', from=1-1, to=2-1]
+\end{tikzcd}\]
     Entonces, el funtor $\langle F,G\rangle:\C\to\A\times\B$ si, y solo si, ambos funtores $F$ y $G$ tienen adjunto izquierdo.
 \end{prop}
+
 Ahora, considereos $\C$ y $\D$ dos categorías y $\D\overset{F}{\underset{G}{\rightleftarrows}}\C$ funtores. Si $\left(D\xrightarrow{h}D'\right)\in\D$ y $\left(C\xrightarrow{k}C'\right)\in \D$, de la definición de adjunción, se tienen los siguientes diagramas conmutativos.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.8\linewidth]{img/diagram1.4.2.png}
-    \end{figure}
+    \[\begin{tikzcd}
+	{\mathcal{C}(FD, C)} && {\mathcal{D}(D, GC)} && {\mathcal{C}(FD, C)} && {\mathcal{D}(D, GC)} \\
+	{\mathcal{C}(FD', C)} && {\mathcal{D}(D', GC)} && {\mathcal{C}(FD, C')} && {\mathcal{D}(D, GC')}
+	\arrow["{\varphi_{D,C}}", from=1-1, to=1-3]
+	\arrow["{\mathcal{C}(Fh, C)}"', from=1-1, to=2-1]
+	\arrow["{\mathcal{D}(h, GC)}", from=1-3, to=2-3]
+	\arrow["{\varphi_{D, C}}", from=1-5, to=1-7]
+	\arrow["{\mathcal{C}(FD, k)}"', from=1-5, to=2-5]
+	\arrow["{\mathcal{D}(D, GK)}", from=1-7, to=2-7]
+	\arrow["{\varphi_{D', C}}"', from=2-1, to=2-3]
+	\arrow["{\varphi_{D, C'}}"', from=2-5, to=2-7]
+\end{tikzcd}\]
     En otras palabras, para todo $FD\xrightarrow{f}C$ se tiene que $\varphi(f\circ Fh)=\varphi(f)h$ y $\varphi(k\circ f)=Gk\circ\varphi f$. Esto es equivalentea que $\varphi^{-1}$ sea también un isomorfismo natural. Es decir, con las mismas flechas y $D'\xrightarrow{g} GC$, se tiene que $\varphi^{-1}(gh)=\varphi^{-1}gFh$ y $\varphi^{-1}(Gkg)=k\varphi^{-1}(g)$. \\
     Tomando el caso particular $C=FD$, se tiene el diagrama conmutativo.
-        \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.45\linewidth]{img/diagram1.4.3.png}
-    \end{figure}
-    \text{}\\
+    \[\begin{tikzcd}
+	{\mathcal{C}(FD, FD)} && {\mathcal{D}(D, GFD)} \\
+	{\mathcal{C}(FD', FD)} && {\mathcal{D}(D', GFD)}
+	\arrow["{\varphi_{D,FD}}", from=1-1, to=1-3]
+	\arrow["FD"', from=1-1, to=2-1]
+	\arrow["{\mathcal{D}(h, GFD)}", from=1-3, to=2-3]
+	\arrow["{\varphi_{D', FD}}"', from=2-1, to=2-3]
+\end{tikzcd}\]
     Defina $\eta_D=\varphi(1_{FD}):D\to GFD$, para toda $D\in \D$.\\
     \emph{Afirmación. } $\langle \eta_D\mid D\in\D\rangle$ define una transformación natural $\eta:1_D\to GF$. \\
-    Basta verificar que el siguiente diagrama conmuta
-        \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.2\linewidth]{img/diagram1.4.4.png}
-    \end{figure}
-    Lo cual es inmediata ya que 
+    Basta verificar que el siguiente diagrama 
+        \[\begin{tikzcd}
+	{D'} & {GFD'} \\
+	D & GFD
+	\arrow["{\eta_{D'}}", from=1-1, to=1-2]
+	\arrow["h"', from=1-1, to=2-1]
+	\arrow["GFh", from=1-2, to=2-2]
+	\arrow["{\eta_D}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+    conmuta. Lo cual es inmediata ya que 
     \begin{equation*}
         GF\varphi(1_D)=\varphi(Fh)=\varphi(1_{D'})h.
     \end{equation*}
     A esta transformación natural $\eta_D:1_D\to GF$ se le llama \emph{unidad de la adjunción} $(F,G,\varphi):\D\to\C$.\\
     Por otro lado, consideremos el caso particular $D=GC$. Entonces se tiene el siguiente diagrama conmutativo. 
-           \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.45\linewidth]{img/diagram1.4.5.png}
-    \end{figure}
+    \[\begin{tikzcd}
+	{\mathcal{C}(FGC, C)} && {\mathcal{D}(GC, GC)} \\
+	{\mathcal{C}(FGC, C')} && {\mathcal{D}(GC, GC')}
+	\arrow["{\varphi_{GC, C}}", from=1-1, to=1-3]
+	\arrow["{\mathcal{C}(FGC, k)}", from=2-1, to=1-1]
+	\arrow["{\varphi_{GC, C'}}"', from=2-1, to=2-3]
+	\arrow["{\mathcal{D}(GC, Gk)}"', from=2-3, to=1-3]
+\end{tikzcd}\]
+
     Se define $\varepsilon_C$ como $\phi^{-1}(1_{GA}):FGC\to C$, para toda $C\in \C$. De manera similar a como se hizo con $\eta_D$, se puede verificar que $\epsilon_C$ es una transformación natural, a la cual le llamamos \emph{counidad de la adjunción} $(F,G,\phi): \D\to \C$.
     \begin{definition}[Equivalencia de categorías]
         Dos categorías $\C$ y $\D$ son \emph{equivalentes} si existe una adjunción $(F,G, \eta,\varepsilon):\D\to\C$ tal que la unidad y la counidad son isomorfismos naturales. En este caso, decimos que los funtores $F$ y $G$ son una equivalencia de categorías. 
@@ -372,7 +457,9 @@ Ahora, considereos $\C$ y $\D$ dos categorías y $\D\overset{F}{\underset{G}{\ri
         \end{eqnarray*}
         tal como se quería.
     \end{proof}
+
 \section{Extensiones de Kan}
+
 Recordemos que $\Fun(\A,\B)$ denota la categoría de funtores de la categoría $\A$ en la categoría $\B$, y cuyos morfismos son las transformaciones naturales entre ellos. Lo que se desea probar en esta sección es que la precomposición 
 \begin{eqnarray*}
 -\circ F:\Fun(\B,\C)&\to&\Fun(\A,\C)\\
@@ -381,37 +468,51 @@ G&\mapsto& G\circ F
 tiene adjunto izquierdo si $\C$ es cocompleta. Como caso particular, esto ocurre si $\C=\Con$.
 \begin{definition}[Extensión de Kan]
     Sean $F:\A\to \B$  y $G:\B\to \C$ funtores. La \emph{extensión de Kan izquierdad} de $G$ a lo largo de $F$, si existe, es una pareja $(K:\B\to\C,\text{ }\alpha:G\Rightarrow K\circ F)$, donde $K$ es un funtor y $\alpha$ una transformación natural, que es universal: para cualquier otra pareja $(H:\B\to\C,\text{ }\beta: G\Rightarrow H\circ F )$ existe una única transformación natural $\gamma: K\Rightarrow H$ tal que $(\gamma\circ F)\alpha=\beta$. Es decir, el diagrama 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.2\linewidth]{img/diagram1.4.6.png}
-    \end{figure}
+   \[\begin{tikzcd}
+	G & KF \\
+	HF
+	\arrow["\alpha", Rightarrow, from=1-1, to=1-2]
+	\arrow["\beta"', Rightarrow, from=1-1, to=2-1]
+	\arrow["{\gamma F}", Rightarrow, from=1-2, to=2-1]
+\end{tikzcd}\]
     conmuta. El funtor $K$ es denotado por $\Lan_F G$.
 \end{definition}
+
 \begin{theo}
     Sean $F:\A\to\B$ y $G:\B\to\C$ funtores. Si $\A$ es pequeña, y $\C$ es cocompleta, entonces la extensión de Kan izquierda de $G$ a lo largo de $F$ existe.
 \end{theo}
+
 \begin{proof}
     \todo{Pendiente.}
 \end{proof}
+
 Sean $\A$ y $\B$ categorías pequeñas y $\C$ una categoría cocompleta. Consideremos el funtor $-\circ F:\Fun(\B,\C)\to\Fun(\A,\C)$ dado por 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.25\linewidth]{img/diagram1.4.7.png}
-    \end{figure}
+\[\begin{tikzcd}
+	L & {L\circ F} \\
+	{L'} & {L'\circ F}
+	\arrow[shift right=5, from=1-1, to=1-2]
+	\arrow["\lambda"', Rightarrow, from=1-1, to=2-1]
+	\arrow["{\lambda \circ F}", from=1-2, to=2-2]
+\end{tikzcd}\]
 Ahora, definimos el funtor $\Lan_{F_{-}}:\Fun(\A,\C)\to\Fun(\B,\C)$
 como
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.25\linewidth]{img/diagram1-4-8.png}
-    \end{figure}
-
+\[\begin{tikzcd}
+	M & {\mbox{Lan}_FM} \\
+	{M'} & {\mbox{Lan}_FM'}
+	\arrow[shift right=5, from=1-1, to=1-2]
+	\arrow["\mu"', Rightarrow, from=1-1, to=2-1]
+	\arrow["{\gamma_\mu}", from=1-2, to=2-2]
+\end{tikzcd}\]
 donde $\Lan_F M$ es el funtor de la pareja $(\Lan_FM:\B\to\C,\text{ }\alpha_M: M\Rightarrow \Lan_FM\circ F)$. Para culaquier otra pareja $(\Lan_F M':\B\to\C,\text{ }\alpha_{M'}\circ\mu:M\Rightarrow \Lan_F M'\circ F)$, se tiene que $\gamma_\mu:\Lan_F M\Rightarrow \Lan_F M'$ es la única transformación natural tal que $(\gamma_\mu\circ F)\alpha_M=\alpha_{M'}$. Así, se tiene el siguiente resultado. 
+
 \begin{prop}
     Sea $F:\A\to\B$ un funtor y $\C$ una categoría. Si $\A$ es pequeña y $\C$ es cocompleta, entonces $\Lan_{F_{-}}$ es adjunto izquierdo de $-\circ F$.
 \end{prop}
+
 \begin{proof}
     \todo{Pendiente.}
 \end{proof}
+
 \section{Categorías extensivas}
 A lo largo de esta sección, nos referiremos a coproductos finitos como sumas finitas. Para tener una descripción detallada de las demostraciones se sugiere al lector interesado en consultar \cite{Merino2002}.
 Dada una categoría $\E$ que admite sumas finitas, y cualesquiera dos objetos $A$ y $B$ de $\E$, se construye la categoría $\E/A\times\E/B $ cuyos objetos son pares $(f,g)$ donde $f:A'\to A$ y $g:B'\to B$, para todo $A', B'\in \Ob(\E)$. Mientras que los morfismos son parejas $(\alpha,\beta)$ donde $\alpha:A'\to A''$ es tal que $f=f'\circ\alpha$, con $f':A''\to A'$ para todo $A', A''$, y lo mismo con $\beta$. A partir de la categoría $\E/A\times\E/B$ se puede construir un funtor que vaya a la categoría $\E/A+B$, esto motiva la siguiente definición.
@@ -421,16 +522,41 @@ Dada una categoría $\E$ que admite sumas finitas, y cualesquiera dos objetos $A
         +:\E/A\times\E/B\to\E/A+B
     \end{eqnarray*}
     como aquel que para cada $(f,g)\in\Ob(\E/A\times\E/B)$ le asigna una flecha inducida por la suma. En un diagrama, esto es
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.35\linewidth]{img/diagrama1.5.1.png}
-    \end{figure}
+    \[\begin{tikzcd}
+	{A'} & {A'+B'} & {B'} \\
+	A & {A+B} & B
+	\arrow["{\iota_{A'}}", from=1-1, to=1-2]
+	\arrow["f"', from=1-1, to=2-1]
+	\arrow["{f+g}", dashed, from=1-2, to=2-2]
+	\arrow["{\iota_{B'}}"', from=1-3, to=1-2]
+	\arrow["g", from=1-3, to=2-3]
+	\arrow["{\iota_A}"', from=2-1, to=2-2]
+	\arrow["{\iota_B}", from=2-3, to=2-2]
+\end{tikzcd}\]
+
     Mientras que a cada morfismo $(\alpha,\beta)$ en $\E/A\times\E/B$ también le asigna la flecha inducida por la suma tal como lo muestra el siguiente diagrama.
-        \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.75\linewidth]{img/diagram1.5.2.png}
-    \end{figure}
+        \[\begin{tikzcd}
+	& {A''} && {A''+B''} && {B''} \\
+	{A'} && {A'+B'} && \bullet \\
+	A && {A+B} && \bullet
+	\arrow["{\iota_{A''}}", from=1-2, to=1-4]
+	\arrow["{f'}", color={rgb,255:red,92;green,92;blue,214}, dashed, from=1-2, to=3-1]
+	\arrow["{\iota_{B''}}", from=1-4, to=1-6]
+	\arrow["{f'+g'}", color={rgb,255:red,92;green,92;blue,214}, dashed, from=1-4, to=3-3]
+	\arrow["{g'}", color={rgb,255:red,92;green,92;blue,214}, from=1-6, to=3-5]
+	\arrow["\alpha", color={rgb,255:red,214;green,92;blue,92}, from=2-1, to=1-2]
+	\arrow["{\iota_{A'}}", from=2-1, to=2-3]
+	\arrow[from=2-1, to=3-1]
+	\arrow["{\alpha +\beta}", color={rgb,255:red,214;green,92;blue,92}, from=2-3, to=1-4]
+	\arrow[from=2-3, to=3-3]
+	\arrow["\beta", color={rgb,255:red,214;green,92;blue,92}, from=2-5, to=1-6]
+	\arrow["{\iota_{B'}}"', from=2-5, to=2-3]
+	\arrow["g", from=2-5, to=3-5]
+	\arrow["{\iota_A}"', from=3-1, to=3-3]
+	\arrow["{\iota_B}", from=3-5, to=3-3]
+\end{tikzcd}\]
 \end{definition}
+
 \begin{definition}[Categoría extensiva]
     Sea $\E$ una categoría con sumas finitas. Decimos que $\E$ satisface la \emph{ley extensiva} si, para cada par de objetos $A$ y $B$ de $\E/A\times \E/B$, el funtor $+:\E/A\times\E/B\to\E/A+B$ es una equivalencia de categorías. En este caso, diremos que $\E$ es una categoría extensiva. 
 \end{definition}
@@ -446,26 +572,43 @@ A grandes rasgos, uno puede pensar en una categoría extensiva como aquella en l
 \end{ejp}
 \begin{definition}[Sumas universales]
     Dada una categoría $\E$ que admite sumas finitas, diremos que las sumas son \emph{universales} si, para cualquier morfismo $f:S\to A+B$, los productos fibrados a lo largo de las inyecciones existen y el renglón superior del siguiente diagrama
-        \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.3\linewidth]{img/diagrama1.5.3.png}
-    \end{figure}
+        \[\begin{tikzcd}
+	{S_1} & S & {S_2} \\
+	A & {A+B} & B
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=1-3, to=1-2]
+	\arrow[from=1-3, to=2-3]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-3, to=2-2]
+\end{tikzcd}\]
     es una suma. 
 \end{definition}
+
 \begin{definition}
     Si una categoría $\E$ tiene objeto inicial $A$, se dice que $A$ es \emph{estricto} si para cada flecha $A\to 0$ se tiene que $A=0$. 
 \end{definition}
+
 \begin{lema}
     Si $\E$ es una suma con sumas universales, ebtobces el objeto inicial es estricto.
 \end{lema}
+
 \begin{theo}
     Sea $\E$ una categoría con sumas universales. Entonces, $\E$ es extensiva si, y solo si, satisface lo siguiente.
     \begin{enumerate}
         \item[i)] Para cualquier diagrama conmutativo de la forma
-        \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.3\linewidth]{img/diagrama1.5.4.png}
-        \end{figure}
+        \[\begin{tikzcd}
+	{A'} & {S'} & B \\
+	A & S & B
+	\arrow["{s_1'}", from=1-1, to=1-2]
+	\arrow["g"', from=1-1, to=2-1]
+	\arrow["f"', from=1-2, to=2-2]
+	\arrow["{s_2'}"', from=1-3, to=1-2]
+	\arrow["h", from=1-3, to=2-3]
+	\arrow["{s_1}"', from=2-1, to=2-2]
+	\arrow["{s_2}", from=2-3, to=2-2]
+\end{tikzcd}\]
         tal que el renglón inferior es una suma, cumple que el renglón superior también es una suma, entonces ambos cuadrados son productos fibrados.
         \item[ii)] Toda suma en $\E$ es universal.
     \end{enumerate}

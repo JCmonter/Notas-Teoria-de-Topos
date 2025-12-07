@@ -1,7 +1,7 @@
 \chapter{Gavillas sobre Marcos}
 
 Lo que se ha abordado hasta ahora es la teoría de haces y gavillas de conjuntos sobre espacios topológicos. En \cite{Merino2002}, se encargan de trasladar las nociones de morfismo étale y morfismos ultrafinitos a un contexto más general, el de los locales. En este capítulo se presentan algunas de las ideas principales de dicha referencia 
-pero viéndolo desde el enfoque de marcos. Para tener más información sobre teoría de marcos, se puede consultar (\textbf{citar las notas de Ángel y bibliografía básica sobre teoría de marcos}).
+pero viéndolo desde el enfoque de marcos. Para tener más información sobre teoría de marcos, se puede consultar \cite{Johnstone82}, \cite{PicadoPultr} o \cite{Zaldivar2023}.
 \section{Marcos y gavillas}
 
 En el sentido categórico, trabajar con locales y trabajar con marcos, en esencia podría parecer lo mismo, ya que la categoría de locales es la categoría opuesta a la categoría de marcos. Sin embargo, en la práctica, trabajar con marcos suele ser más sencillo. 
@@ -57,20 +57,75 @@ El siguiente resultado proporciona algunas propiedades básicas de la implicaci�
 
 \begin{prop}\label{prop basicas implicacion}
     Consideremos $A$ un marco y $a,b,c\in A$. Entonces 
-    \begin{itemize}
-        \item $1\succ a=a$.
-        \item $a\succ (b\wedge c)=(a\succ b)\wedge (a\succ c)$.
+    \begin{enumerate}
+        \item $(1\succ a)=a$.
+        \item $a\leq b$ si y solo si $(a\succ b)=1$.
+        \item $a\leq (b\succ a)$.
+        \item $(a\succ b)=(a\succ (a\wedge b))$.
+        \item $a\wedge(a\succ b)=a\wedge b$.
         \item $(a\vee b)\succ c=(a\succ c)\wedge (b\succ c)$.
-        \item $a\leq b$ si y solo si $1\leq (a\succ b)$.
-        \item $a\leq (b\succ c)$ si y solo si $a\wedge b \leq c$.
-        \item $(a\wedge b)\succ c=a\succ (b\succ c)$
-        \item $a\wedge(a\succ b)=a\wedge b$
-    \end{itemize}
+        \item $(a\wedge b)\succ c=(a\succ (b\succ c))=(b\succ (a\succ c))$.
+        \item $a=(a\vee b)\wedge (b\succ a)$.
+        \item $a\leq ((a\succ b)\succ b)$.
+        \item $(((a\succ b)\succ b)\succ b)=(a\succ b)$.
+        \item Si $c\leq b$, entonces $(b\succ a)\leq (c\succ a)$.
+        \item $\neg a=(a\succ 0)$.
+    \end{enumerate}
 \end{prop}
+
+\begin{proof}
+(Podrían dejarse la prueba de las propiedades como ejercicio.)
+\end{proof}
 
 \subsection{Núcleos y cocientes en marcos}
 Cuando trabajamos en $\Top$, la noción de subespacio puede ser capturada mediante la noción de sublocal. A su vez, los sublocales pueden ser estudiados de manera 
 algebraica mediante lo que en marcos se conoce como \emph{núcleos}. Esta subsección explicara brevemente la relación entre núcleos y sublocales.
+
+\begin{definition}\label{Nucleo}
+Sean $A\in \Frm$ y $j\colon A\to A$ una función. Decimos que $j$ es un \emph{núcleo} si cumple las siguientes propiedades para todo $a,b\in A$:
+\begin{enumerate}
+        \item Si $a\leq b$, entonces $j(a)\leq j(b)$ (monotonía).
+    \item $a\leq j(a)$ (inflación).
+    \item $j(j(a))=j(a)$ (idempotencia).
+    \item $j(a\wedge b)=j(a)\wedge j(b)$ (preservación de ínfimos finitos).
+\end{enumerate}
+\end{definition}
+
+Cuando consideramos a $A$ como nuestro marco base, denotamos por $NA$ al conjunto de todos los núcleos sobre $A$.
+
+\begin{prop}\label{Nucleos distinguidos}
+Sean $A$ un marco y $a, x\in A$. Las funciones 
+\[
+u_a(x)=a\vee x,\quad v_a(x)=(a\succ x),\quad w_a(x)=((x\succ a)\succ a)
+\]
+son núcleos en $A$. 
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+En la practica, a los núcleos de la forma $v_a$ se les conoce como \emph{núcleos abiertos}, mientras que a los núcleos de la forma $u_a$ se les conoce como \emph{núcleos cerrados}.
+
+\begin{prop}
+Si $A$ es un marco y $j\in NA$, entonces el conjunto
+\[
+A_j=\{x\in A\mid j(x)=x\}
+\]
+es un marco y el morfismo $j^*\colon A\to A_j$, dado por $j^*(x)=j(x)$, es un morfismo de marcos.
+\end{prop}
+
+Al trabajar en cualquier estructura algebraica, la manera más natural de construir un cociente es a través de ciertas relaciones de equivalencia.
+Con ellas definimos lo que se conoce como congruencias y por medio de ellas damos el paso hacía los cocientes. En el caso de los marcos, el proceso anterior se puede realizar de manera más sencilla y directa ya que los núcleos pueden sustituir a las congruencias al momento de construir cocientes. 
+Los detalles de esto se pueden consultar en \cite{Zaldivar2023}.
+
+\begin{definition}\label{Cociente}
+Sea $A$ un marco y $f\colon A\to B$ un morfismo de marcos. Decimos que $B$ es un \emph{cociente} de $A$ si $f$ es suprayectivo.
+\end{definition}
+
+\begin{obs}
+Si $j$ es un núcleo en el marco $A$, entonces $A_j$ es un cociente de $A$. Denominamos a $A_j$ como el \emph{marco cociente}.
+\end{obs}
 
 \begin{prop}\label{adjunto derecho de nucleo}
     Sea $A$ un marco y $j\in NA$, entonces la inclusión de $A_j$ en $A$ es el adjunto derecho de $j^*:A\to A_j$

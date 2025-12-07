@@ -45,10 +45,13 @@ Algunos ejemplos relvantes de gavillas son los siguientes.
         \end{eqnarray*}
         es una gavilla. Para esto, primero veamos que $C(-)$ es funtorial, lo cual demostraría que en efecto es una pregavilla.
         Sea $U\overset{\rho}{\hookrightarrow} V$ con $U,V\in\O(S)$. Entonces, $C(\rho):C(V)\to C(U)$. Tomando la restricción usual, se tiene el siguiente diagrama
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.25\linewidth]{img/diagram2.1.png}
-        \end{figure}
+        \[\begin{tikzcd}
+	U & V \\
+	& {\mathbb{R}}
+	\arrow["\rho", hook, from=1-1, to=1-2]
+	\arrow["{f_{\mid U}}"', from=1-1, to=2-2]
+	\arrow["f", from=1-2, to=2-2]
+    \end{tikzcd}\]
         conmutativo. Esto prueba la funtorialidad, y así $C(-)$ es una pregavilla.\\
         Ahora, veamos que, para cada $U\in \O(S)$Y $\{U_i\}_{i\in I}$ una cubierta abierta para $U$, el siguiente diagrama 
         \begin{eqnarray}\label{ejp2.1}
@@ -76,18 +79,26 @@ Algunos ejemplos relvantes de gavillas son los siguientes.
             \Omega(\rho):\Omega(V)&\to&\Omega(U).
         \end{eqnarray*}
         Por definición, $\Omega(V)=\{f: V\to\C\mid f\text{ es holomorfa}\}$. Tomando la restricción usual, se tiene que el siguiente diagrama conmuta.
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.2\linewidth]{img/gav3.png}
-        \end{figure}
+        \[\begin{tikzcd}
+	U & V \\
+	& {\mathbb{C}}
+	\arrow["\rho", hook, from=1-1, to=1-2]
+	\arrow["{f_{\mid U}}"', from=1-1, to=2-2]
+	\arrow["f", from=1-2, to=2-2]
+\end{tikzcd}\]
         Así, $\Omega(-)$ es funtorial y, por lo tanto, una pregavilla.\\
         Para probar que $\Omega(-)$ es una gavilla, vamos a verificar las condiciones i) y ii) dadas anteriormente.
         \begin{enumerate}
         \item[i).] Sea $U\in\O(S)$ y $\{U_i\}_{i\in I}$ una cubierta abierta para $U$. Supongamos que $s$ y $s'$ son secciones tales que $\rho^U_{U_i}(s)=\rho^U_{U_i}(s')$. Del siguiente diagrama
-            \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.4\linewidth]{img/diagram2.2.png}
-        \end{figure}
+            \[\begin{tikzcd}
+	{U_i} && {U=\bigcup_{i\in I} U_i} \\
+	&& {\mathbb{C}}
+	\arrow[shift left, hook, from=1-1, to=1-3]
+	\arrow["{\rho_{U_i}^U(s')}"{description}, shift right=2, from=1-1, to=2-3]
+	\arrow["{\rho_{U_i}^U(s)}"{description}, shift left=2, from=1-1, to=2-3]
+	\arrow[shift right, from=1-3, to=2-3]
+	\arrow[shift left, from=1-3, to=2-3]
+\end{tikzcd}\]
         se tiene que $s=s'$.
         \item[ii).] Supongamos que $f_j:U_j\to\mathbb{C}$ son holomorfas y $f_i\mid_{U_i\cap U_j}=f_j\mid_{U_i\cap U_j}$. En $U=\bigcup_{i\in I}U_i$, definimos $f(w)=f_j(w)$, para toda $w\in U_i$. Para ver que la condición de pegado se satisface, basta verificar que $f$ satisface las condiciones de Cauchy-Riemann. Sea $z=x+iy\in\C$. Entonces, $f(z)=f(x,y)=f(x+iy)=u(x,y)+iv(x,y)$. Luego, 
    
@@ -105,32 +116,49 @@ Dado $S$ un espacio topológico, la categoría de rebanadas $\Top/S$ consta de l
 \begin{enumerate}
     \item[$\bullet$] \emph{Objetos}. Todas las funciones continuas $f\in\Mor(\Top)$ cuyo codominio son igual a $S$.
     \item[$\bullet$] \emph{Morfismos}. Para cada función continua $f:E\to E'\in\Mor(\Top)$, existen $p:E\to S$ y $p':E'\to S$ tales que $p=p'\circ f$.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.42\linewidth]{img/diagram2.2.1.png}
-    \end{figure}
+   \[\begin{tikzcd}
+	& E &&&& {E'} \\
+	{\Top/S=} \\
+	&&& S
+	\arrow["f", from=1-2, to=1-6]
+	\arrow["p"', from=1-2, to=3-4]
+	\arrow["{p'}", from=1-6, to=3-4]
+\end{tikzcd}\]
 \end{enumerate}
+
 A una función continua de la forma $p:E\to S$ le llamamos \emph{haz} sobre $S$, y al espacio $E$ se le conoce como \emph{espacio total}. En topología algebraica es común estudiar un tipo particular de haces, los cuales se llaman haces fibrados, y no deben de confundirse con los haces que estamos estudiando ya que $f$ solo es una función continua y no un homeomorfismo; además, de que no pedimos la condición de localidad trivial como ocurre en el caso de los haces fibrados. \\
 Para cada punto $x\in S$, la \emph{fibra asociada} a $x$ es la preimagen  $p^{-1}(x)$. Esto nos permite interpretar al espacio $E$ como un espacio formado por copias de cada fibra parametrizada por los puntos de $S$. Como $p:E\to S$ es una función continua, la preimagen de abiertos manda abiertos en abiertos; por lo cual, para cada $U\in S$ conjunto abierto, se tiene que $p_U:p^{-1}(U)\to U$ es un haz sobre $U$. Más aún, el siguiente diagrama
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.32\linewidth]{img/diagram2.2.2.png}
-    \end{figure}
-\noindent
+   \[\begin{tikzcd}
+	{p^{-1}(U)} & E \\
+	U & S
+	\arrow[hook, from=1-1, to=1-2]
+	\arrow["{p_U}"', from=1-1, to=2-1]
+	\arrow["p", from=1-2, to=2-2]
+	\arrow["f"', hook, from=2-1, to=2-2]
+\end{tikzcd}\]
 es un pullback en $\Top$. 
 \begin{definition}[Sección] Una \emph{sección} (global) de un haz $p:E\to S$ es una función continua $s:S\to E$ tal que $p\circ s=\id_S$. Una \emph{sección local} de $p$ alrededor de $x\in S$ es una sección de $p_U$. 
 \end{definition}
 \begin{prop}
     Sea $p:E\to S$ un haz y $f:U\to S$ una función continua. Hay una correspondencia biyectiva entre el conjunto de secciones de $p_U$ y el conjunto de levantamientos de $f$ a $E$, es decir, funciones continuas $h:U\to E$ tal que $ph=f$.
 \end{prop}
+
 \begin{proof}
     Por la propiedad universal del pullback, dar una sección de $p_U$ es equivalente a dar un levantamiento $h:U\to E$ de $f$ que hace completar el siguiente diagrama.
-        \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.43\linewidth]{img/diagram.2.2.3.png}
-    \end{figure}
+  \[\begin{tikzcd}
+	U \\
+	& {p^{-1}(U)} & E \\
+	& U & S
+	\arrow[color={rgb,255:red,214;green,92;blue,92}, dashed, from=1-1, to=2-2]
+	\arrow["h", color={rgb,255:red,92;green,92;blue,214}, from=1-1, to=2-3]
+	\arrow["{\id_U}"', color={rgb,255:red,92;green,92;blue,214}, from=1-1, to=3-2]
+	\arrow[hook, from=2-2, to=2-3]
+	\arrow["{p_U}", from=2-2, to=3-2]
+	\arrow["p", from=2-3, to=3-3]
+	\arrow["f"', hook, from=3-2, to=3-3]
+\end{tikzcd}\]
 \end{proof}
-\noindent
+
 Denotemos por $\Gamma_pU:=\{s\mid s\text{ es una sección local}\}$. Dado un abierto $U$ de $S$ y $V\subset U$, se define
 \begin{eqnarray*}
     \Gamma_pU&\to&\Gamma_p V\\
@@ -172,15 +200,25 @@ Notemos que, para un punto $x\in S$, los elementos de $P_x$ son precisamente las
 \end{lema}
 \begin{proof}
     Sean $U,V\in\O(x)$. Entonces, se tiene el siguiente diagrama
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.3\linewidth]{img/diagram_2.3.1.png}
-    \end{figure}
+   \[\begin{tikzcd}
+	PU && PV \\
+	& {P_x}
+	\arrow[from=1-1, to=1-3]
+	\arrow["{\germ_x}"', from=1-1, to=2-2]
+	\arrow["{\germ_x}", from=1-3, to=2-2]
+\end{tikzcd}\]
+
     Si $s\in PU$ es tal que $s\mid_V=PV$, entonces $[s]_x=[s\mid_V]_x$. Por lo tanto, el diagrama anterior conmuta y $(\germ_x:PU\to P_x)_{U\in \O(x)}$ es un cócono. Ahora, consideremos $(\tau_u: PU\to L)_{U\in\O(x)}$ otro cocono sobre $P^{(x)}$. Veamos que existe una única función $t:P_x\to L$ tal que $t\circ\germ_x=\tau$. Esto es, 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.45\linewidth]{img/diagram2.3.2.png}
-    \end{figure}
+    \[\begin{tikzcd}
+	& PU && PV \\
+	L &&& {P_x}
+	\arrow[from=1-2, to=1-4]
+	\arrow["{\tau_U}"', color={rgb,255:red,214;green,92;blue,92}, from=1-2, to=2-1]
+	\arrow["{\germ_x}"', from=1-2, to=2-4]
+	\arrow["{\tau_V}"', color={rgb,255:red,214;green,92;blue,92}, from=1-4, to=2-1]
+	\arrow["{\germ_x}", from=1-4, to=2-4]
+	\arrow["t"', color={rgb,255:red,92;green,92;blue,214}, dashed, from=2-1, to=2-4]
+\end{tikzcd}\]
     Definamos $t:P_x\to L$ como $t([s]_x)=\tau_U(s)$. Ahora, tomemos $r$ otro representante, i.e., $[s]_x=[r]_x$ implica que existe $W\in U\cap V$ tal que $s\mid_W=r\mid_W$ y $\tau_W(s\mid_W)=\tau_W(r\mid_W)$. Como $\tau$ es un cócono, entonces 
     \begin{eqnarray*}
     \tau_U(s)=\tau_W(s\mid_W)=\tau_W(r\mid_W)=\tau_V(r).
@@ -194,10 +232,14 @@ Notemos que, para un punto $x\in S$, los elementos de $P_x$ son precisamente las
 \end{proof}
 \begin{lema}
     Cualquier morfismo $h:P\to Q$ de pregavillas (cualquier transformación natural), en cada punto $x\in S$, induce una única función $h_x:P_x\to Q_x$ tal que el diagrama 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.3\linewidth]{img/diagram2.3.3.png}
-    \end{figure}
+    \[\begin{tikzcd}
+	PU & QU \\
+	{P_x} & {Q_x}
+	\arrow["{h_U}", from=1-1, to=1-2]
+	\arrow["{\germ_x}"', from=1-1, to=2-1]
+	\arrow["{\germ_x}", from=1-2, to=2-2]
+	\arrow["{h_x}"', from=2-1, to=2-2]
+\end{tikzcd}\]
     conmuta para cualquier $U\in\O(x)$.
 \end{lema}
 \begin{proof}
@@ -205,11 +247,18 @@ Notemos que, para un punto $x\in S$, los elementos de $P_x$ son precisamente las
 \end{proof}
 \noindent
 Del resultado anterior, tenemos el diagrama conmutativo
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.37\linewidth]{img/diagram2.3.4.png}
-    \end{figure}
-\noindent
+    \[\begin{tikzcd}
+	PU && PV \\
+	QU && QV \\
+	& {Q_x}
+	\arrow[from=1-1, to=1-3]
+	\arrow["{H_U}"', from=1-1, to=2-1]
+	\arrow["{H_V}", from=1-3, to=2-3]
+	\arrow[from=2-1, to=2-3]
+	\arrow[from=2-1, to=3-2]
+	\arrow[from=2-3, to=3-2]
+\end{tikzcd}\]
+
 Un resultado inmediato es el siguiente.
 \begin{lema}
     La transformación natural dada por $h\to h_x$ es un funtor de $\Con^{\O(x)^{op}}\to \Con$. Dicho funtor es ``tomar germen en $x$''.
@@ -707,6 +756,30 @@ es continua para todo $W\subseteq T$ y para toda $r\in GW$.
 \end{lema}
 
 \begin{proof}
+\begin{description}
+\item[$\Rightarrow)$] Supongamos que $k\colon f^*\Gamma G\to X$ es continua. Sea $W\in \mathcal{O}T$ y $r\in GW$. Entonces, $t_r\colon f^{-1}(W)\to f^*\Lambda G$ es continua por construcción y así la composición $k\circ t_r\colon f^{-1}(W)\to X$ es continua.
+\item[$\Leftarrow)$] Supongamos que para todo $W\in \mathcal{O}T$ y $r\in GW$, la composición $k\circ t_r\colon f^{-1}(W)\to X$ es continua. Sea $U\in \mathcal{O}X$, debemos ver que $k^{-1}(U)$ es abierto en $f^*\Lambda G$. Sea $\langle x, [s\in GV]_{f(x)}\rangle\in k^{-1}(U)$, entonces $k(\langle x, [s\in GV]_{f(x)}\rangle)\in U$. 
+Por hipótesis, la función $k\circ t_s\colon f^{-1}(V)\to X$ es continua, luego
+\[
+(k\circ t_s)^{-1}(U)=(t_s^{-1}\circ k^{-1})(U)
+\]
+es $f^{-1}(V)$. Además, $t_s((t_s)^{-1}\circ k^{-1})(U)$ es abierto y $t_s((t_s)^{-1}\circ k^{-1})(U)=k^{-1}(U)$. Por lo tanto $k$ es continua.
+\end{description}
+\end{proof}
+
+\begin{theo}\label{Teo 2.5.9}
+Si $(f\colon S\to T)\in \Top$, entonces el funtor $f^*\colon \Gav(T)\to \Gav(S)$ es adjunto izquierdo del funtor $f_*\colon \Gav(S)\to \Gav(T)$.
+\end{theo}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{lema}\label{Lema 2.5.10}
+El funtor $f^*\colon \Gav(T)\to \Gav(S)$ es exacto izquierdo.
+\end{lema}
+
+\begin{proof}
 
 \end{proof}
 
@@ -847,3 +920,16 @@ una cubierta abierta ajena de $f^{-1}(W)$ con la propiedad que $W_i\subseteq U_i
 \begin{proof}
 
 \end{proof}
+
+\begin{prop}\label{Prop 3.0.15}
+Sea $(f\colon S\to T)\in \Top$ con $f(S)$ denso en $T$. Entonces, el funtor $f_*\colon \Gav(S)\to \Gav(T)$ preserva coproductos si y solo si para cada $V\in \mathcal{O}T$ y $y\in V$ siempre que $f^{-1}(V)=A\cup B$ con $A, B\in \mathcal{O}S$ ajenos, entonces existe 
+$W\in \mathcal{O}T$ con $y\in W$ tal que $f^{-1}(W)\subseteq A$ o $f^{-1}(W)\subseteq B$.
+\end{prop}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{theo}\label{Teo 3.0.16}
+Sea $f\colon S\to T$ una función continua es un morfismo ultrafinito si y solo si el funtor $f_*\colon \Gav(S)\to \Gav(T)$ preserva el objeto inicial, epimorfismos y sumas finitas.0
+\end{theo}

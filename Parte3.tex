@@ -123,6 +123,33 @@ Los detalles de esto se pueden consultar en \cite{Zaldivar2023}.
 Sea $A$ un marco y $f\colon A\to B$ un morfismo de marcos. Decimos que $B$ es un \emph{cociente} de $A$ si $f$ es suprayectivo.
 \end{definition}
 
+\begin{lema}\label{Lema de cocientes isomorfos}
+    Sean $A\xrightarrow{f}B,A\xrightarrow{g}C\in\Frm$ dos cocientes de $A$ tales que $f_*f^*=g_*g^*$, entonces $B\cong C$.
+\end{lema}
+
+\begin{proof}
+    Sea el núcleo $k=f_*f^*=g_*g^*\in NA$. Veamos que el marco de puntos fijos $A_k$ es isomorfo a $B$. Para ver esto definamos $f^\sharp:A_k\to B$ como $f^\sharp(x):=f(k(x))$ para todo $x\in A_k$. Los detalles de la prueba de ser un morfismo de marcos se pueden revisar en \cite{Zaldivar2023}, aquí solo veamos que es biyectivo.
+
+    Para esto sean $x,y\in A_k$ tales que $f^\sharp(x)=f^\sharp(y)$, de lo que tenemos
+    $$f(k(x))=f(k(y)) \implies f(x)=f(y) \implies f_*f*(x)=f_*f*(y) \implies x=k(x)=k(y)=y$$
+    Lo que prueba que es inyectiva.
+
+    Ahora sea $b\in B$, por ser cociente, $f$ es suprayectivo y existe $a\in A$ tal que $f(a)=b$. Entonces $k(a)\in A_k$ y es tal que
+    $$f^\sharp(k(a))=f(kk(a))=f(k(a))=f^*f_*f^*(a)=f^*(a)=b$$
+    Lo que prueba que $f^\sharp$ es un isomorfismo de marcos. 
+    
+    Análogamente tenemos que $A_k\xrightarrow{g^\sharp}C$ es un isomorfismo y por lo tanto $B\cong C$.
+\end{proof}
+
+La construcción de $f^\sharp$ en la demostración anterior, es muy importante y de hecho, como se puede ver en \cite{Zaldivar2023}, es el único tal que el triángulo
+ \[\begin{tikzcd}
+	A & B \\
+	{A_k}
+	\arrow["f", from=1-1, to=1-2]
+	\arrow["{k^*}"', from=1-1, to=2-1]
+	\arrow["{f^\sharp}"', from=2-1, to=1-2]
+\end{tikzcd}\]
+conmuta. Donde $k=f_*f^*$ es el núcleo de $f$.
 \begin{obs}
 \begin{enumerate}
     \item Si $j$ es un núcleo en el marco $A$, entonces $A_j$ es un cociente de $A$. Denominamos a $A_j$ como el \emph{marco cociente}.
@@ -441,7 +468,7 @@ que en cierto sentido son equivalentes los dos lemas anteriores.
     \end{tikzcd}
 \end{proof}
 
-Notemos que la proposición anterior básicamente dice que si se tiene el siguiente diagrama
+Notemos que la proposición anterior básicamente dice que si se tiene el siguiente diagrama \todo{Pendiente arreglar diagrama}
 \[\begin{tikzcd}
 	A && B \\
 	{\downarrow a} && {\downarrow b} \\
@@ -534,8 +561,58 @@ Notemos que la proposición anterior básicamente dice que si se tiene el siguie
 \end{coro}
 
 \begin{proof}
-    
+    Si $f$ es étale, por el lema \ref{etale implica abierto} $f$ es abierto, y existen familias $\{a_i\}_{i\in I}\subseteq A$
+    y $\{b_i\}_{i\in I}\subseteq B$ tales que $\bigvee_{i\in I}b_i=1$ y se tiene para cada $i\in I$
+    un isomorfismo $f_i:A_{v_{a_i}}\to B_{v_{b_i}}$ que hace conmutar el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_{a_i}}} & {B_{v_{b_i}}}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{v_{a_i}}"', from=1-1, to=2-1]
+        \arrow["{v_{b_i}}", from=1-2, to=2-2]
+        \arrow["f_i"', from=2-1, to=2-2]
+    \end{tikzcd}.
+
+    Como $f_i$ es un isomorfismo, definimos $f_{il}:=f_i^{-1}$. Y entonces tenemos que conmuta el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_{a_i}}} & {B_{v_{b_i}}}
+        \arrow["{f_l}"', from=1-2, to=1-1]
+        \arrow["{a_i\wedge-}", from=2-1, to=1-1]
+        \arrow["{b_i\wedge-}"', from=2-2, to=1-2]
+        \arrow["{f_{il}}", from=2-2, to=2-1]
+    \end{tikzcd} de los adjuntos izquierdos. Por lo que tenemos para $z\in B_{v_{b_i}}$ que 
+    $$f_l(b_i\wedge z)=a_i\wedge f_{il}(z) \implies a_i\succ f_l(b_i\wedge z)=a_i\succ (a_i\wedge f_{il}(z))= f_{il}(z)$$
+    considerando las propiedades de la implicación y que $f_{il}(z)$ es un punto fijo del núcleo $v_{a_i}$. Solo resta ver que
+    $$f_l(b_i)=f_l(b_i\wedge 1)=f_{il}(1)\wedge a_i =a_i$$
+    puesto que el cuadrado de adjuntos izquierdos conmuta y el isomorfismo preserva el elemento tope.
+
+    Por otro lado, supongamos que $f$ satisface 1. y 2., entonces definimos $a_i:=f_l(b_i)$ y veamos que para $z\in B_{v_{b_i}}$ tenemos que
+    $$a_i\wedge f_{il}(z)= a_i\wedge (a_i\succ f_l(b_i\wedge z))=a_i\wedge f_l(b_i\wedge z)=f_l(f(a_i)\wedge b_i \wedge z)=f_l(b_i\wedge z)$$
+    considerando que $f_l$ satisface la identidad de Frobenius y que $b_i\leq f(a_i)=f(f_l(b_i))$. Esto significa que el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_{a_i}}} & {B_{v_{b_i}}}
+        \arrow["{f_l}"', from=1-2, to=1-1]
+        \arrow["{a_i\wedge-}", from=2-1, to=1-1]
+        \arrow["{b_i\wedge-}"', from=2-2, to=1-2]
+        \arrow["{f_{il}}", from=2-2, to=2-1]
+    \end{tikzcd} conmuta, y por lo tanto conmuta el cuadrado de los adjuntos derechos \begin{tikzcd}
+        A & B \\
+        {A_{v_{a_i}}} & {B_{v_{b_i}}}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{v_{a_i}}"', from=1-1, to=2-1]
+        \arrow["{v_{b_i}}", from=1-2, to=2-2]
+        \arrow["f_i"', from=2-1, to=2-2]
+    \end{tikzcd} (considerando que $f_{il}$ es un isomorfismo, su inversa es su adjunto derecho). Lo que prueba que $f$ es étale.
 \end{proof}
+
+\begin{obs} Para un marco arbitrario $A$ y un elemento $a\in A$:
+    \begin{itemize}
+        \item El morfismo de paso al cociente $A\xrightarrow{v_a^*}A_{v_a}$ es étale. Usando el lema anterior, ya sabemos que es abierto (lema \ref{nucleo abierto iff paso al cociente abierto}).
+        Luego tomamos la familia unipuntual ${1}\subseteq A_{v_a}$ que obviamente cubre ($\bigvee \{1\} =1$), y es justo la identidad en $A_{v_a}$ el que es el isomorfismo entre los cocientes.
+        
+        \item El morfismo $A\xrightarrow{a\wedge-}\downarrow a$ es étale. El morfismo es abierto (su adjunto izquierdo es la inclusión, y satisface Frobenius). Luego la familia $\{a\}\subseteq \downarrow a$ cubre, y de nuevo la identidad del cociente $A_{v_a}$ es el isomorfismo
+        que hace étale al morfismo deseado.
+    \end{itemize}
+\end{obs}
 
 \begin{prop}
     Sea :$f_l:B\to A$ un morfismo de copos entre dos marcos. Lo siguiente es equivalente:
@@ -547,7 +624,23 @@ Notemos que la proposición anterior básicamente dice que si se tiene el siguie
 \end{prop}
 
 \begin{proof}
-    
+    Supongamos existe $f$ un morfismo de marcos étale que es adjunto derecho de $f_l$. Como $f_l$ tiene adjunto derecho, entonces preserva supremos arbitrarios y del corolario \ref{corolario etale y adjunto izquierdo} 
+    existen la familia $\{b_i\}_{i\in I}\subseteq B$ tal que cubre y $f_{il}:B_{v_{b_i}}\to A_{v_{a_i}}$ es un isomorfismo.
+
+    Para el converso, como $f_l$ preserva supremos arbitrarios, entonces tiene adjunto derecho $f:A\to B$ (que solo sabemos es un morfismo de COPOS). Para ver que $f$ es morfismo de marcos, es suficiente con probar que respeta supremos arbitrarios  
+    (por tener adjunto izquierdo, ya abre ínfimos y preserva tope); para eso veremos que tiene adjunto derecho. Definamos $f_*:B\to A$ como $f_*(y):=\bigwedge_{i\in I}f_{il}(b_i\succ y)$ para cada $y\in B$. Ahora sean $x\in A$, $y\in B$ entonces, por un lado
+    \begin{eqnarray*}
+        x\leq f_*(y) &\iff&  x\leq \bigwedge_{i\in I}f_{il}(b_i\succ y) \\
+                    &\iff& x\leq f_{il}(b_i\succ y) \text{ para todo } i\in I \\
+                    &\implies& a_i\succ x\leq a_i\succ f_{il}(b_i\succ y)= f_{il}(b_i\succ y) \text{ para todo } i\in I \\ 
+                    &\implies& f_i(a_i\succ x)= b_i\succ f(x)\leq b_i\succ y \text{ para todo } i\in I \\ 
+                    &\implies& b_i\wedge f(x)\leq y \text{ para todo } i\in I \\
+                    &\iff& \bigvee_{i\in I}(b_i\wedge f(x))=\bigvee_{i\in I}b_i\wedge f(x)=f(x)\leq y
+    \end{eqnarray*}
+    y por otro lado
+    \begin{eqnarray*}
+        f(x)\leq y &\iff& \bigvee_{i\in I}b_i\wedge f(x) =
+    \end{eqnarray*}
 \end{proof}
 \begin{prop}
     La composición de morfismos étales de marcos es un morfismo étale.
@@ -574,6 +667,82 @@ Notemos que la proposición anterior básicamente dice que si se tiene el siguie
     conmuta (los morfismos $f_{il}$ y $g_{jl}$ se dan en el corolario \ref{corolario etale y adjunto izquierdo}). 
 
     Sea la familia $\{\gamma_{ij}\}_{(i,j)\in I\times J}\subseteq C$ donde $\gamma_{ij}:= g(b_i)\wedge c_j$. Veamos que  
+\end{proof}
+
+\begin{lema}
+    Sea $f:A\to B\in\Frm$. Entonces $f$ es un morfismo étale si y solo si existe $X\subseteq B$ tal que:
+    \begin{itemize}
+        \item $\bigvee X = 1$.
+        \item Para cada $x\in X$ el morfismo $v_x^*\circ f$ es suprayectivo con núcleo abierto.
+    \end{itemize}
+\end{lema}
+
+\begin{proof}
+    Si $f$ es étale entonces existen familias $\{a_i\}_{i\in I}\subseteq A$
+    y $\{b_i\}_{i\in I}\subseteq B$ tales que $\bigvee_{i\in I}b_i=1$ y se tiene para cada $i\in I$
+    un isomorfismo $f_i:A_{v_{a_i}}\to B_{v_{b_i}}$ que hace conmutar el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_{a_i}}} & {B_{v_{b_i}}}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{v_{a_i}}"', from=1-1, to=2-1]
+        \arrow["{v_{b_i}}", from=1-2, to=2-2]
+        \arrow["f_i"', from=2-1, to=2-2]
+    \end{tikzcd}. 
+    Esto significa que $v_{a_i}=f_*\circ v^*_{b_i}\circ f$ (Recordemos que el adjunto derecho de un paso al cociente es la inclusión), lo que significa
+    que $v_x^*\circ f$ tiene núcleo abierto, además debe ser suprayectiva, pues tenemos que es igual a la composición de dos funciones suprayectivas ($v_{a_i}$ y $f_i$).
+
+    Por otro lado, supongamos que existe $X\subseteq B$ tal que $\bigvee X = 1$ y para cada $x\in X$ el morfismo $v_x^*\circ f$ es suprayectivo con núcleo abierto. 
+    Entonces, para cada $x\in X$ existe $a_x\in A$ tal que $v_{a_x}=f_*\circ v^*_{b_i}\circ f$, entonces por el lema \ref{Lema de cocientes isomorfos}, tenemos que los cocientes son isomorfos,
+    lo que significa que el cuadrado \begin{tikzcd}
+        A & B \\
+        {A_{v_{a_x}}} & {B_{v_x}}
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["{v_{a_x}}"', from=1-1, to=2-1]
+        \arrow["{v_{x}}", from=1-2, to=2-2]
+        \arrow["f_x"', from=2-1, to=2-2]
+    \end{tikzcd}. 
+    Donde $f_x= (v_x^*\circ f)^\sharp$ (Detalles de $(-)^\sharp$ en \cite{Zaldivar2023}).
+\end{proof}.
+
+\begin{lema}
+    Sea el triángulo conmutativo \begin{tikzcd}
+	& A \\
+	B && C
+	\arrow["f"', from=1-2, to=2-1]
+	\arrow["g", from=1-2, to=2-3]
+	\arrow["h"', from=2-1, to=2-3]
+\end{tikzcd} $\in\Frm$. 
+
+Si $f$ y $g$ son étales, entonces $h$ es étale.
+\end{lema}
+
+\begin{proof}
+    Por ser $f$ y $g$ étales, existen $X\subseteq B$ y $Y\in C$ tales que $\bigvee X=1$, $\bigvee Y=1$,
+    y para cada $x\in X$ y $y\in Y$, el siguiente diagrama
+    \[\begin{tikzcd}
+        {A_{k_x}} && A && {A_{k_y}} \\
+        {B_{v_x}} & B && C & {C_{v_y}}
+        \arrow["{f_x}"', from=1-1, to=2-1]
+        \arrow["{k_x^*}"', from=1-3, to=1-1]
+        \arrow["{k_y^*}", from=1-3, to=1-5]
+        \arrow["f"', from=1-3, to=2-2]
+        \arrow["g", from=1-3, to=2-4]
+        \arrow["{g_y}", from=1-5, to=2-5]
+        \arrow["{v_x^*}", from=2-2, to=2-1]
+        \arrow["h"', from=2-2, to=2-4]
+        \arrow["{v_y^*}"', from=2-4, to=2-5]
+    \end{tikzcd}\] conmuta. Donde $f_x$ y $g_y$ son isomorfismos, y los núcleos $k_x,k_y\in NA$ son abiertos y corresponden a los núcleos de los
+    morfismos $v_x^*\circ f$ y $v_y^*\circ g$ respectivamente.
+
+    Definamos $Z:=\{y\wedge h(x) | x\in X, y\in Y\}$, veamos que cubre:
+    \begin{eqnarray*}
+        \bigvee Z &=& \bigvee_{x\in X , y\in Y}(y\wedge h(x))=\bigvee_{x\in X}\bigvee_{y\in Y}(y\wedge h(x)) \\
+                    &=& \bigvee_{x\in X}(\bigvee_{y\in Y}y\wedge h(x))=\bigvee_{x\in X}h(x) \\ 
+                    &=& h(\bigvee_{x\in X} x)=1
+    \end{eqnarray*} 
+    Recordando que $X$ y $Y$ cubren, la distributividad de un marco, y que $h$ es morfismo de marcos.
+
+    Notemos que para $z=y\wedge h(x)$ tenemos que $z\leq y$, por lo tanto $C_{v_z}\subseteq C_{v_y}$ y $v_z=v_y\circ v_z$
 \end{proof}
 
 \section{Algunas equivalencias importantes}
